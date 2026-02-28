@@ -54,22 +54,14 @@
             (function() {
                 const lines = [
                     { cls: 'term-prompt', text: '$ ', suffix: { cls: 'term-cmd', text: 'whoami' } },
-                    { cls: 'term-cyan',   text: 'RainyinSaiGon @ University of Science, VNU-HCM' },
-                    { cls: 'term-out',    text: 'TypeScript · Go · Python' },
+                    { cls: 'term-cyan',   text: 'RainyinSaiGon' },
+                    { cls: 'term-out',    text: 'CS Senior (Year 3)  ·  VNU-HCM' },
                     { cls: 'term-out',    text: '' },
-                    { cls: 'term-prompt', text: '$ ', suffix: { cls: 'term-cmd', text: 'git clone github.com/dinhdaivu/PetCareX' } },
-                    { cls: 'term-out',    text: 'Cloning into \'PetCareX\'...' },
-                    { cls: 'term-green',  text: '✓ Resolving deltas: 100% (312/312)' },
-                    { cls: 'term-prompt', text: '$ ', suffix: { cls: 'term-cmd', text: 'cd PetCareX && go run .' } },
-                    { cls: 'term-green',  text: '✓ Server running on :8080' },
-                    { cls: 'term-out',    text: 'POST /api/pets/register   201  4.2ms' },
-                    { cls: 'term-out',    text: 'GET  /api/health          200  0.8ms' },
+                    { cls: 'term-prompt', text: '$ ', suffix: { cls: 'term-cmd', text: 'cat stack.txt' } },
+                    { cls: 'term-green',  text: 'Go  ·  TypeScript  ·  Python  ·  SQL' },
                     { cls: 'term-out',    text: '' },
-                    { cls: 'term-prompt', text: '$ ', suffix: { cls: 'term-cmd', text: 'python xai/explain.py --model rf' } },
-                    { cls: 'term-out',    text: 'Running SHAP analysis...' },
-                    { cls: 'term-yellow', text: '⚡ Top feature: vaccination_status  (0.42)' },
-                    { cls: 'term-yellow', text: '⚡ Top feature: last_visit_days      (0.31)' },
-                    { cls: 'term-green',  text: '✓ Report saved → reports/shap_summary.html' },
+                    { cls: 'term-prompt', text: '$ ', suffix: { cls: 'term-cmd', text: 'cat focus.txt' } },
+                    { cls: 'term-yellow', text: 'Databases  ·  Performance  ·  XAI' },
                 ];
 
                 const out = document.getElementById('term-output');
@@ -143,7 +135,7 @@
                         setTimeout(typeChar, isOutput ? 16 : 42);
                     } else {
                         li++; ci = 0;
-                        const pause = (li === 4 || li === 12) ? 500 : 110;
+                        const pause = (li === 4 || li === 7) ? 500 : 110;
                         setTimeout(typeLine, pause);
                     }
                 }
