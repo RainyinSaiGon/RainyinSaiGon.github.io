@@ -21,28 +21,26 @@
         <div class="max-w-2xl" id="post-list">
             {{range .Posts}}
             <article
-                class="mb-14 pb-14 border-b border-gray-100 last:border-0 last:mb-0 last:pb-0"
+                class="mb-14 pb-14 border-b border-gray-100 dark:border-gray-800 last:border-0 last:mb-0 last:pb-0"
                 data-tags="{{range $i, $t := .Tags}}{{if $i}},{{end}}{{$t}}{{end}}"
             >
                 <h2 class="text-xl font-bold leading-snug mb-2">
-                    <a class="hover:underline dark:text-blue-300" style="color:#0d2a4a" href="/blog/{{.Slug}}">{{.Title}}</a>
+                    <a class="text-gray-900 dark:text-gray-100 hover:text-blue dark:hover:text-blue-light transition-colors" href="/blog/{{.Slug}}">{{.Title}}</a>
                 </h2>
-                <p class="text-sm mb-3" style="color:#9ca3af">
+                <p class="text-sm mb-3 text-gray-400">
                     {{.Date}}
-                    <span class="mx-1.5">&#183;</span>
+                    <span class="mx-1.5">·</span>
                     {{.ReadTime}} {{if eq .ReadTime 1}}minute{{else}}minutes{{end}} read
                 </p>
                 {{if .Tags}}
                 <div class="flex flex-wrap gap-1.5 mb-4">
-                    {{range .Tags}}
-                    <span class="text-xs px-2.5 py-0.5 rounded-full font-medium" style="background:#e0edff;color:#1a6eb5">{{.}}</span>
-                    {{end}}
+                    {{range .Tags}}<span class="tag-pill">{{.}}</span>{{end}}
                 </div>
                 {{end}}
                 {{if .Description}}
-                <p class="text-gray-600 leading-relaxed text-base mb-5">{{.Description}}</p>
+                <p class="text-gray-600 dark:text-gray-400 leading-relaxed text-base mb-5">{{.Description}}</p>
                 {{end}}
-                <a class="text-sm font-semibold" style="color:#1a6eb5" href="/blog/{{.Slug}}">Read more →</a>
+                <a class="text-sm font-semibold transition-opacity hover:opacity-70" style="color:#1a6eb5" href="/blog/{{.Slug}}">Read more →</a>
             </article>
             {{end}}
         </div>
@@ -83,7 +81,7 @@
             // "All" pill
             const all = document.createElement('button');
             all.textContent = 'All';
-            all.className = 'px-4 py-1.5 rounded-full text-sm font-medium transition-colors';
+            all.className = 'filter-pill px-4 py-1.5 rounded-full text-sm font-medium';
             applyStyle(all, active === null);
             all.onclick = () => { active = null; history.replaceState(null,'',location.pathname); update(); };
             filterContainer.appendChild(all);
@@ -91,7 +89,7 @@
             tagSet.forEach(tag => {
                 const btn = document.createElement('button');
                 btn.textContent = tag;
-                btn.className = 'px-4 py-1.5 rounded-full text-sm font-medium transition-colors';
+                btn.className = 'filter-pill px-4 py-1.5 rounded-full text-sm font-medium';
                 applyStyle(btn, active === tag);
                 btn.onclick = () => { active = tag; history.replaceState(null,'','?tag='+encodeURIComponent(tag)); update(); };
                 filterContainer.appendChild(btn);
@@ -99,13 +97,8 @@
         }
 
         function applyStyle(btn, isActive) {
-            if (isActive) {
-                btn.style.background = '#1a6eb5';
-                btn.style.color = '#fff';
-            } else {
-                btn.style.background = '#e0edff';
-                btn.style.color = '#1a6eb5';
-            }
+            btn.classList.remove('filter-pill-active', 'filter-pill-inactive');
+            btn.classList.add(isActive ? 'filter-pill-active' : 'filter-pill-inactive');
         }
 
         function update() {

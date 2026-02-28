@@ -1,4 +1,48 @@
-﻿/* Tile entrance animation (home hero) */
+﻿/* ── Smooth theme transition ─────────────────────────────────── */
+*, *::before, *::after {
+    transition: background-color 0.2s ease, color 0.15s ease, border-color 0.2s ease;
+}
+/* Disable transitions on page load to prevent flash */
+.no-transition * { transition: none !important; }
+
+/* ── Hero background ─────────────────────────────────────────── */
+.hero-bg {
+    background: linear-gradient(135deg, #ddeeff 0%, #c8e4ff 60%, #b8d4f0 100%);
+}
+.dark .hero-bg {
+    background: linear-gradient(135deg, #0a0f1a 0%, #0d1f35 55%, #0a1628 100%);
+}
+
+/* ── Alternate section (light blue panel in home) ────────────── */
+.section-alt { background: #f0f7ff; }
+.dark .section-alt { background: #111827; }
+
+/* Wave SVG fill adapts to section-alt */
+.wave-to-alt   { fill: #f0f7ff; }
+.wave-from-alt { fill: #f0f7ff; }
+.dark .wave-to-alt   { fill: #111827; }
+.dark .wave-from-alt { fill: #111827; }
+
+/* ── Tag pills ───────────────────────────────────────────────── */
+.tag-pill {
+    display: inline-block;
+    background: #e0edff;
+    color: #1a6eb5;
+    font-size: 0.72rem;
+    padding: 0.18rem 0.65rem;
+    border-radius: 999px;
+    font-weight: 500;
+    line-height: 1.6;
+    text-decoration: none;
+    transition: opacity 0.15s ease;
+}
+.tag-pill:hover { opacity: 0.8; }
+.dark .tag-pill {
+    background: #193452;
+    color: #7eb8f7;
+}
+
+/* ── Tile entrance animation (home hero) ─────────────────────── */
 .tile {
     opacity: 0;
     animation: tile-in 0.5s ease forwards;
@@ -16,8 +60,9 @@
     to   { opacity: 1; transform: scale(1); }
 }
 
-/* Blog post body typography */
+/* ── Blog post body typography ───────────────────────────────── */
 .post-body h2 { font-size: 1.35rem; font-weight: 700; margin: 2rem 0 0.75rem; color: #0d2a4a; }
+.post-body h3 { font-size: 1.1rem; font-weight: 700; margin: 1.5rem 0 0.6rem; color: #0d2a4a; }
 .post-body p  { margin-bottom: 1rem; color: #374151; line-height: 1.8; }
 .post-body ul, .post-body ol { margin-left: 1.5rem; margin-bottom: 1rem; color: #374151; }
 .post-body li { margin-bottom: 0.4rem; }
@@ -25,3 +70,43 @@
 .post-body code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-family: 'Cascadia Code', 'JetBrains Mono', monospace; font-size: 0.88em; }
 .post-body pre { background: #1e293b; color: #e2e8f0; padding: 1.25rem; border-radius: 10px; overflow-x: auto; margin-bottom: 1.25rem; }
 .post-body pre code { background: none; color: inherit; padding: 0; }
+
+/* post-body dark mode */
+.dark .post-body h2, .dark .post-body h3 { color: #f1f5f9; }
+.dark .post-body p  { color: #d1d5db; }
+.dark .post-body ul, .dark .post-body ol { color: #d1d5db; }
+.dark .post-body code { background: #1e293b; color: #e2e8f0; }
+.dark .post-body a  { color: #7eb8f7; }
+
+/* ── Info card (About page) ─────────────────────────────────── */
+.info-card {
+    background: #ddeeff;
+    border: 1px solid #c0daf7;
+    border-radius: 1rem;
+    padding: 2rem;
+}
+.dark .info-card {
+    background: #172033;
+    border-color: #2a3f5a;
+}
+
+/* ── Blog filter pills ───────────────────────────────────────── */
+.filter-pill {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+.filter-pill-active  { background: #1a6eb5; color: #fff; }
+.filter-pill-inactive { background: #e0edff; color: #1a6eb5; }
+.dark .filter-pill-inactive { background: #193452; color: #7eb8f7; }
+.dark .filter-pill-active   { background: #1a6eb5; color: #fff; }
+
+/* ── Search result cards ─────────────────────────────────────── */
+@keyframes fade-up {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+.result-card {
+    animation: fade-up 0.18s ease both;
+}

@@ -20,29 +20,43 @@
 
 {{define "nav-home"}}
 <nav class="flex items-center justify-between px-10 py-5 max-w-5xl mx-auto">
-    <a class="font-bold text-lg text-navy dark:text-blue-300 hover:text-blue" href="/">RainyinSaiGon</a>
+    <a class="font-bold text-lg hover:opacity-70 transition-opacity" style="color:#0d2a4a" href="/">
+        <span class="dark:hidden">RainyinSaiGon</span>
+        <span class="hidden dark:inline" style="color:#7eb8f7">RainyinSaiGon</span>
+    </a>
     <div class="flex items-center gap-6">
-        <a class="font-medium text-gray-800 dark:text-gray-200 hover:text-blue" href="/works">Works</a>
-        <a class="font-medium text-gray-800 dark:text-gray-200 hover:text-blue" href="/blog">Blog</a>
-        <a class="font-medium text-gray-800 dark:text-gray-200 hover:text-blue" href="/about">About</a>
-        <a class="font-medium text-gray-800 dark:text-gray-200 hover:text-blue" href="/search" title="Search">&#128269;</a>
-        <button id="theme-toggle" onclick="toggleTheme()" class="w-8 h-8 flex items-center justify-center rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" title="Toggle dark mode" aria-label="Toggle dark mode">
-            <span class="dark:hidden">☀️</span><span class="hidden dark:inline">🌙</span>
+        <a class="font-medium text-gray-700 dark:text-gray-300 hover:text-blue dark:hover:text-blue-light transition-colors" href="/works">Works</a>
+        <a class="font-medium text-gray-700 dark:text-gray-300 hover:text-blue dark:hover:text-blue-light transition-colors" href="/blog">Blog</a>
+        <a class="font-medium text-gray-700 dark:text-gray-300 hover:text-blue dark:hover:text-blue-light transition-colors" href="/about">About</a>
+        <a class="text-gray-500 dark:text-gray-400 hover:text-blue dark:hover:text-blue-light transition-colors" href="/search" title="Search posts" aria-label="Search">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </a>
+        <button onclick="toggleTheme()" class="w-8 h-8 flex items-center justify-center rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" title="Toggle dark mode" aria-label="Toggle dark mode">
+            <!-- Moon: shown in light mode -->
+            <svg class="dark:hidden" width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/></svg>
+            <!-- Sun: shown in dark mode -->
+            <svg class="hidden dark:block" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
         </button>
     </div>
 </nav>
 {{end}}
 
 {{define "nav-inner"}}
-<nav class="flex items-center justify-between px-10 py-5 max-w-5xl mx-auto border-b border-gray-200 dark:border-gray-700">
-    <a class="font-bold text-lg dark:text-blue-300 hover:text-blue" style="color:#0d2a4a" href="/">RainyinSaiGon</a>
+<nav class="flex items-center justify-between px-10 py-5 max-w-5xl mx-auto border-b border-gray-200 dark:border-gray-800">
+    <a class="font-bold text-lg hover:opacity-70 transition-opacity" style="color:#0d2a4a" href="/">
+        <span class="dark:hidden">RainyinSaiGon</span>
+        <span class="hidden dark:inline" style="color:#7eb8f7">RainyinSaiGon</span>
+    </a>
     <div class="flex items-center gap-6">
-        <a class="font-medium text-gray-800 dark:text-gray-200 hover:text-blue" href="/works">Works</a>
-        <a class="font-medium text-gray-800 dark:text-gray-200 hover:text-blue" href="/blog">Blog</a>
-        <a class="font-medium text-gray-800 dark:text-gray-200 hover:text-blue" href="/about">About</a>
-        <a class="font-medium text-gray-800 dark:text-gray-200 hover:text-blue" href="/search" title="Search">&#128269;</a>
-        <button onclick="toggleTheme()" class="w-8 h-8 flex items-center justify-center rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" title="Toggle dark mode" aria-label="Toggle dark mode">
-            <span class="dark:hidden">☀️</span><span class="hidden dark:inline">🌙</span>
+        <a class="font-medium text-gray-700 dark:text-gray-300 hover:text-blue dark:hover:text-blue-light transition-colors" href="/works">Works</a>
+        <a class="font-medium text-gray-700 dark:text-gray-300 hover:text-blue dark:hover:text-blue-light transition-colors" href="/blog">Blog</a>
+        <a class="font-medium text-gray-700 dark:text-gray-300 hover:text-blue dark:hover:text-blue-light transition-colors" href="/about">About</a>
+        <a class="text-gray-500 dark:text-gray-400 hover:text-blue dark:hover:text-blue-light transition-colors" href="/search" title="Search posts" aria-label="Search">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </a>
+        <button onclick="toggleTheme()" class="w-8 h-8 flex items-center justify-center rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" title="Toggle dark mode" aria-label="Toggle dark mode">
+            <svg class="dark:hidden" width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/></svg>
+            <svg class="hidden dark:block" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
         </button>
     </div>
 </nav>

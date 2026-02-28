@@ -13,16 +13,16 @@
 <body class="font-sans text-gray-900 bg-white dark:bg-gray-950 dark:text-gray-100">
 
     <!-- HERO -->
-    <div style="background:linear-gradient(135deg,#ddeeff 0%,#c8e4ff 60%,#b8d4f0 100%)">
+    <div class="hero-bg">
         {{template "nav-home" .}}
         <div class="flex items-center justify-between max-w-5xl mx-auto px-10 pb-20 pt-12 gap-10 flex-wrap">
             <div class="flex-1 min-w-[280px]">
-                <h1 class="text-5xl font-black leading-tight mb-5 text-navy" style="color:#0d2a4a">Hi, I'm RainyinSaiGon</h1>
-                <p class="text-lg text-gray-600 max-w-md mb-2">I work at the intersection of software engineering, databases, performance, and Explainable AI.</p>
-                <p class="text-lg text-gray-600 max-w-md">This is where I share my projects and thoughts on building systems that are fast, reliable, and understandable.</p>
+                <h1 class="text-5xl font-black leading-tight mb-5 text-gray-900 dark:text-white">Hi, I'm RainyinSaiGon</h1>
+                <p class="text-lg text-gray-600 dark:text-gray-300 max-w-md mb-2">I work at the intersection of software engineering, databases, performance, and Explainable AI.</p>
+                <p class="text-lg text-gray-600 dark:text-gray-300 max-w-md">This is where I share my projects and thoughts on building systems that are fast, reliable, and understandable.</p>
                 <div class="flex gap-4 mt-9 flex-wrap">
-                    <a class="inline-flex items-center gap-2 bg-blue text-white px-6 py-3 rounded-lg font-semibold text-sm hover:opacity-90" style="background:#1a6eb5" href="/blog">My blog </a>
-                    <a class="inline-flex items-center gap-2 border-2 text-blue px-6 py-3 rounded-lg font-semibold text-sm hover:opacity-80" style="border-color:#1a6eb5;color:#1a6eb5" href="/works">My projects </a>
+                    <a class="inline-flex items-center gap-2 text-white px-6 py-3 rounded-lg font-semibold text-sm hover:opacity-90 transition-opacity" style="background:#1a6eb5" href="/blog">My blog</a>
+                    <a class="inline-flex items-center gap-2 border-2 px-6 py-3 rounded-lg font-semibold text-sm hover:opacity-80 transition-opacity dark:border-blue-400 dark:text-blue-300" style="border-color:#1a6eb5;color:#1a6eb5" href="/works">My projects</a>
                 </div>
             </div>
             <!-- Terminal animation -->
@@ -132,28 +132,28 @@
     </div>
 
     <svg class="block w-full" style="line-height:0" viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-        <path d="M0,0 C360,60 1080,60 1440,0 L1440,60 L0,60 Z" fill="#f0f7ff"/>
+        <path class="wave-to-alt" d="M0,0 C360,60 1080,60 1440,0 L1440,60 L0,60 Z"/>
     </svg>
 
     <!-- WORKS -->
     {{if .Projects}}
-    <div style="background:#f0f7ff" class="py-16">
+    <div class="section-alt py-16">
         <div class="max-w-5xl mx-auto px-10">
             <div class="flex items-baseline justify-between mb-8">
-                <h2 class="text-2xl font-extrabold" style="color:#0d2a4a">Recent works</h2>
-                <a class="text-sm font-medium" style="color:#1a6eb5" href="/works">All works →</a>
+                <h2 class="text-2xl font-extrabold text-gray-900 dark:text-white">Recent works</h2>
+                <a class="text-sm font-medium transition-opacity hover:opacity-70" style="color:#1a6eb5" href="/works">All works →</a>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {{range .Projects}}
-                <div class="flex flex-col bg-white rounded-xl overflow-hidden shadow-sm border border-gray-200">
+                <div class="flex flex-col bg-white dark:bg-gray-900 rounded-xl overflow-hidden shadow-sm border border-gray-200 dark:border-gray-700 transition-shadow hover:shadow-md">
                     {{if .Image}}<img class="w-full h-44 object-cover" src="{{.Image}}" alt="{{.Title}}">
-                    {{else}}<div class="w-full h-44" style="background:#ddeeff"></div>{{end}}
+                    {{else}}<div class="w-full h-44 section-alt"></div>{{end}}
                     <div class="flex flex-col flex-1 p-5">
-                        <div class="font-bold text-base mb-2">{{.Title}}</div>
-                        <div class="text-sm text-gray-500 leading-relaxed flex-1">{{.Description}}</div>
+                        <div class="font-bold text-base mb-2 text-gray-900 dark:text-white">{{.Title}}</div>
+                        <div class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed flex-1">{{.Description}}</div>
                         <div class="flex gap-3 mt-4">
-                            {{if .CodeURL}}<a class="text-xs font-semibold px-3 py-1 rounded-md border" style="color:#1a6eb5;border-color:#1a6eb5" href="{{.CodeURL}}">Code</a>{{end}}
-                            {{if .DemoURL}}<a class="text-xs font-semibold px-3 py-1 rounded-md border" style="color:#1a6eb5;border-color:#1a6eb5" href="{{.DemoURL}}">Demo</a>{{end}}
+                            {{if .CodeURL}}<a class="text-xs font-semibold px-3 py-1 rounded-md border border-blue-500 transition-colors hover:bg-blue-50 dark:hover:bg-blue-950" style="color:#1a6eb5;border-color:#1a6eb5" href="{{.CodeURL}}">Code</a>{{end}}
+                            {{if .DemoURL}}<a class="text-xs font-semibold px-3 py-1 rounded-md border transition-colors hover:bg-blue-50 dark:hover:bg-blue-950" style="color:#1a6eb5;border-color:#1a6eb5" href="{{.DemoURL}}">Demo</a>{{end}}
                         </div>
                     </div>
                 </div>
@@ -164,22 +164,22 @@
     {{end}}
 
     <svg class="block w-full" style="line-height:0" viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-        <path d="M0,60 C360,0 1080,0 1440,60 L1440,0 L0,0 Z" fill="#f0f7ff"/>
+        <path class="wave-from-alt" d="M0,60 C360,0 1080,0 1440,60 L1440,0 L0,0 Z"/>
     </svg>
 
     <!-- POSTS -->
     {{if .Posts}}
-    <div class="py-16 bg-white">
+    <div class="py-16 bg-white dark:bg-gray-950">
         <div class="max-w-5xl mx-auto px-10">
             <div class="flex items-baseline justify-between mb-8">
-                <h2 class="text-2xl font-extrabold" style="color:#0d2a4a">Latest posts</h2>
-                <a class="text-sm font-medium" style="color:#1a6eb5" href="/blog">All posts →</a>
+                <h2 class="text-2xl font-extrabold text-gray-900 dark:text-white">Latest posts</h2>
+                <a class="text-sm font-medium transition-opacity hover:opacity-70" style="color:#1a6eb5" href="/blog">All posts →</a>
             </div>
-            <ul class="divide-y divide-gray-200">
+            <ul class="divide-y divide-gray-200 dark:divide-gray-800">
                 {{range .Posts}}
-                <li class="flex items-baseline gap-6 py-4">
+                <li class="flex items-baseline gap-6 py-4 group">
                     <span class="text-sm text-gray-400 whitespace-nowrap w-28 shrink-0">{{.Date}}</span>
-                    <a class="font-semibold text-gray-900 hover:text-blue" style="--tw-text-opacity:1" href="/blog/{{.Slug}}">{{.Title}}</a>
+                    <a class="font-semibold text-gray-900 dark:text-gray-100 group-hover:text-blue dark:group-hover:text-blue-light transition-colors" href="/blog/{{.Slug}}">{{.Title}}</a>
                 </li>
                 {{end}}
             </ul>

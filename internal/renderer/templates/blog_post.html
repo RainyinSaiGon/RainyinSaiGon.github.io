@@ -17,18 +17,19 @@
 
     <main class="max-w-5xl mx-auto px-10 py-14">
         <div class="max-w-2xl">
-            <a href="/blog" class="inline-flex items-center gap-1 text-sm mb-10 text-gray-400 hover:text-blue">&#8592; Blog</a>
-            <h1 class="text-4xl font-extrabold leading-tight mb-3 dark:text-white" style="color:#0d2a4a">{{.Title}}</h1>
+            <a href="/blog" class="inline-flex items-center gap-1 text-sm mb-10 text-gray-400 dark:text-gray-500 hover:text-blue transition-colors">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+                Blog
+            </a>
+            <h1 class="text-4xl font-extrabold leading-tight mb-3 text-gray-900 dark:text-white">{{.Title}}</h1>
             <p class="text-sm mb-4 text-gray-400">
                 {{.Date}}
-                <span class="mx-1.5">&#183;</span>
+                <span class="mx-1.5">·</span>
                 {{.ReadTime}} {{if eq .ReadTime 1}}minute{{else}}minutes{{end}} read
             </p>
             {{if .Tags}}
             <div class="flex flex-wrap gap-1.5 mb-10">
-                {{range .Tags}}
-                <a class="text-xs px-2.5 py-0.5 rounded-full font-medium" style="background:#e0edff;color:#1a6eb5" href="/blog/?tag={{.}}">{{.}}</a>
-                {{end}}
+                {{range .Tags}}<a class="tag-pill" href="/blog/?tag={{.}}">{{.}}</a>{{end}}
             </div>
             {{else}}
             <div class="mb-12"></div>
@@ -38,17 +39,17 @@
             </div>
 
             <!-- Prev / Next navigation -->
-            <nav class="mt-16 pt-8 border-t border-gray-200 dark:border-gray-700 grid grid-cols-2 gap-6 text-sm">
+            <nav class="mt-16 pt-8 border-t border-gray-200 dark:border-gray-800 grid grid-cols-2 gap-6 text-sm">
                 <div>
                     {{if .Next}}
-                    <p class="text-gray-400 mb-1">← Older</p>
-                    <a class="font-semibold hover:underline dark:text-blue-300" style="color:#1a6eb5" href="/blog/{{.Next.Slug}}">{{.Next.Title}}</a>
+                    <p class="text-gray-400 mb-1 text-xs uppercase tracking-wide font-medium">← Older</p>
+                    <a class="font-semibold transition-opacity hover:opacity-70" style="color:#1a6eb5" href="/blog/{{.Next.Slug}}">{{.Next.Title}}</a>
                     {{end}}
                 </div>
                 <div class="text-right">
                     {{if .Prev}}
-                    <p class="text-gray-400 mb-1">Newer →</p>
-                    <a class="font-semibold hover:underline dark:text-blue-300" style="color:#1a6eb5" href="/blog/{{.Prev.Slug}}">{{.Prev.Title}}</a>
+                    <p class="text-gray-400 mb-1 text-xs uppercase tracking-wide font-medium">Newer →</p>
+                    <a class="font-semibold transition-opacity hover:opacity-70" style="color:#1a6eb5" href="/blog/{{.Prev.Slug}}">{{.Prev.Title}}</a>
                     {{end}}
                 </div>
             </nav>
