@@ -28,6 +28,8 @@
                     {{.Date}}
                     <span class="mx-1.5">·</span>
                     {{.ReadTime}} {{if eq .ReadTime 1}}minute{{else}}minutes{{end}} read
+                    <span class="mx-1.5">·</span>
+                    <span id="view-count"></span>
                 </p>
                 {{if .Tags}}
                 <div class="flex flex-wrap gap-1.5 mb-10">
@@ -115,5 +117,14 @@
     {{template "footer" .}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
     <script>hljs.highlightAll();</script>
+    <script>
+    fetch('https://rainyinsaigon.goatcounter.com/counter//blog/{{.Slug}}/.json')
+        .then(function(r){ return r.ok ? r.json() : null; })
+        .then(function(d){
+            if (d && d.count) {
+                document.getElementById('view-count').textContent = d.count + ' views';
+            }
+        }).catch(function(){});
+    </script>
 </body>
 </html>{{end}}
