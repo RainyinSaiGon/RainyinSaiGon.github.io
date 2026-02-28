@@ -11,16 +11,16 @@ vet: fmt
 build: vet
 	go build -o portfolio.exe
 
-run: build
-	./portfolio.exe
+run:
+	go run .
+
+serve:
+	go run .
+	python -m http.server 8080 --directory docs
 
 clean:
-	rm -rf public/
+	rm -rf docs/
 	rm -f portfolio.exe
-
-serve: run
-	@echo "Generated site is in public/ folder"
-	@echo "To deploy to GitHub Pages, push public/ as your gh-pages branch"
 
 help:
 	@echo "Portfolio Static Site Generator"

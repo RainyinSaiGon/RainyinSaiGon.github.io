@@ -1,150 +1,89 @@
-# RainyinSaiGon's Portfolio
+﻿# RainyinSaiGon
 
-A lightweight static site generator built in Go for creating a personal portfolio with blog and projects.
+Personal portfolio and blog  built with a custom static site generator in Go.
+Live at: **https://rainyinsaigon.github.io**
 
-Inspired by [ziap.github.io](https://ziap.github.io/)
+Inspired by [ziap.github.io](https://ziap.github.io)
 
-## Quick Start
+---
 
-```bash
-# Build the generator
-go build -o portfolio.exe
+## Stack
 
-# Generate the site
-./portfolio.exe
-
-# Or use Makefile
-make run
-```
+- **Generator**: Go (static site generator, no framework)
+- **Styling**: Tailwind CSS (CDN) + Google Sans
+- **Deployment**: GitHub Actions -> GitHub Pages (served from `/docs`)
 
 ## Project Structure
 
 ```
-.
-├── main.go                     # Static site generator
-├── go.mod                      # Go module
-├── Makefile                    # Build commands
-├── content/
-│   ├── posts/                  # Blog posts (markdown)
-│   └── projects/               # Projects/works (markdown)
-├── public/                     # Generated HTML (deploy this to GitHub Pages)
-│   ├── index.html              # Home page
-│   ├── blog/
-│   │   ├── index.html          # Blog listing
-│   │   └── {slug}/index.html   # Individual blog posts
-│   ├── works/index.html        # Projects listing
-│   └── about/index.html        # About page
-└── README.md
+ch1/
+ main.go                          # Entry point  calls builder.Build()
+ go.mod
+ Makefile
+ content/
+    posts/                       # Blog posts (.md with frontmatter)
+    projects/                    # Portfolio projects (.md with frontmatter)
+ internal/
+     model/model.go               # Post, Project, HomeData types
+     parser/parser.go             # Parse .md files + compute read time
+     builder/builder.go           # Orchestration: parse -> sort -> render
+     renderer/
+         renderer.go              # html/template + embed.FS
+         templates/               # HTML templates (home, blog, works, about)
+         static/style.css         # Animations + post body typography
 ```
 
-## Features
+## Local Development
 
-✅ **Multiple Pages**: Home, Blog, Works (Projects), About  
-✅ **Fast Build**: Compiles to a single binary  
-✅ **Clean Design**: Responsive HTML with no dependencies  
-✅ **SEO-Friendly**: Proper meta tags and structure  
-✅ **Easy Deployment**: Deploy the `public/` folder to GitHub Pages  
-✅ **Date Sorting**: Posts automatically sorted by date (newest first)  
-✅ **Featured Projects**: Mark projects as featured for home page display  
-
-## Adding Content
-
-### Blog Posts
-
-Create `.md` files in `content/posts/` with this format:
-
-```markdown
-title: Your Post Title
-date: 2026-02-28
-description: Short description for the blog listing
----
-
-<h2>Post Content</h2>
-<p>Your HTML content here...</p>
-```
-
-**Note**: Posts are sorted by date in reverse order (newest first).
-
-### Projects
-
-Create `.md` files in `content/projects/` with this format:
-
-```markdown
-title: Project Title
-description: Short description
-image: /images/project.png
-code: https://github.com/your-username/repo
-demo: https://example.com
-featured: true
----
-```
-
-- Set `featured: true` to display on the home page (limited to 3)
-- Keep `featured: false` for projects only in the Works page
-- `image`, `code`, and `demo` fields are optional
-
-## Navigation Structure
-
-- **/** → Home page (hero + featured projects + recent posts)
-- **/blog** → All blog posts
-- **/blog/{slug}** → Individual blog post
-- **/works** → All projects
-- **/about** → About page
-
-## Deployment to GitHub Pages
-
-1. **Create a repository** named `RainyinSaiGon.github.io` on GitHub
-2. **Push to GitHub**:
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial portfolio setup"
-   git remote add origin https://github.com/RainyinSaiGon/RainyinSaiGon.github.io.git
-   git push -u origin main
-   ```
-3. **Enable GitHub Pages**:
-   - Go to Settings → Pages
-   - Select "Deploy from a branch"
-   - Choose `main` branch and `/root` directory
-4. **Generate and deploy**:
-   ```bash
-   ./portfolio.exe
-   git add public/
-   git commit -m "Build: Generate portfolio site"
-   git push
-   ```
-
-## Customization
-
-All HTML templates and CSS are embedded in `main.go`. You can:
-
-- Edit the `baseCSS()` function to change global styles
-- Modify templates in `generateHomePage()`, `generateBlogPage()`, etc.
-- Change colors, fonts, and spacing in the embedded CSS
-
-## Available Make Commands
+Build the site and serve it locally:
 
 ```bash
-make fmt      # Format code
-make vet      # Run Go vet
-make build    # Build the generator (default)
-make run      # Build and generate HTML
-make clean    # Remove generated files
-make help     # Show help
+make serve
+# opens at http://localhost:8080
 ```
 
-## Example Content
+Or manually:
 
-Sample files are provided:
-- `content/posts/getting-started-go.md` - Intro blog post
-- `content/projects/portfolio-builder.md` - Project example
-- `content/projects/learning-go.md` - Another project example
+```bash
+go run .
+python -m http.server 8080 --directory docs
+```
 
-## License
+## Writing a Post
 
-MIT License - Feel free to use this as a template for your own portfolio!
+Create a file in `content/posts/my-post.md`:
 
+```
+title: My Post Title
+date: 2026-02-28
+description: A short summary shown on the blog list page.
 ---
+<p>Your HTML content here.</p>
+<h2>A section heading</h2>
+<p>More content...</p>
+```
 
-**Built with Go** 🚀
+Read time is calculated automatically (~200 wpm).
 
+## Adding a Project
+
+Create a file in `content/projects/my-project.md`:
+
+```
+title: My Project
+description: Short description shown on the works page.
+image: https://example.com/screenshot.png
+code: https://github.com/RainyinSaiGon/my-project
+demo: https://my-project.vercel.app
+featured: true
+```
+
+## Deployment
+
+Push to `main`  GitHub Actions builds the site and deploys `docs/` automatically.
+
+```bash
+git add -A
+git commit -m "your message"
+git push origin main
+```

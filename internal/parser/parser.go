@@ -2,13 +2,28 @@ package parser
 
 import (
 	"html/template"
+	"math"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strings"
 	"time"
 
 	"portfolio/internal/model"
 )
+
+var htmlTagRe = regexp.MustCompile(`<[^>]+>`)
+
+// readTime estimates minutes to read based on a ~200 wpm average.
+func readTime(htmlContent string) int {
+	text := htmlTagRe.ReplaceAllString(htmlContent, " ")
+	words := len(strings.Fields(text))
+	minutes := int(math.Ceil(float64(words) / 200.0))
+	if minutes < 1 {
+		minutes = 1
+	}
+	return minutes
+}
 
 // ReadPosts reads all .md files from dir and returns a slice of Posts.
 func ReadPosts(dir string) ([]model.Post, error) {
@@ -98,7 +113,9 @@ func parsePost(slug, raw string) model.Post {
 		}
 	}
 
-	post.Content = template.HTML(strings.Join(lines[bodyStart:], "\n"))
+	body := strings.Join(lines[bodyStart:], "\n")
+	post.Content = template.HTML(body)
+	post.ReadTime = readTime(body)
 	return post
 }
 
