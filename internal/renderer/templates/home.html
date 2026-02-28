@@ -26,7 +26,7 @@
                     <span class="w-3 h-3 rounded-full inline-block" style="background:#ff5f57"></span>
                     <span class="w-3 h-3 rounded-full inline-block" style="background:#febc2e"></span>
                     <span class="w-3 h-3 rounded-full inline-block" style="background:#28c840"></span>
-                    <span class="ml-3 text-xs" style="color:#64748b">~/projects/xai-engine</span>
+                    <span class="ml-3 text-xs" style="color:#64748b">rainyinsaigon@vnu-hcm:~</span>
                 </div>
                 <!-- Terminal body -->
                 <div class="px-5 py-4 text-sm leading-relaxed" style="color:#e2e8f0;min-height:220px">
@@ -42,54 +42,45 @@
                 .term-out   { color: #94a3b8; }
                 .term-green { color: #4ade80; }
                 .term-yellow{ color: #facc15; }
-                .term-red   { color: #f87171; }
+                .term-cyan  { color: #67e8f9; }
             </style>
             <script>
             (function() {
                 const lines = [
-                    { cls: 'term-prompt', text: '$ ', suffix: { cls: 'term-cmd', text: 'python explain.py --model xgb' } },
-                    { cls: 'term-out',    text: 'Loading model weights... done' },
-                    { cls: 'term-out',    text: 'Running SHAP analysis on 1024 samples' },
-                    { cls: 'term-green',  text: '✓ Feature importance computed (42ms)' },
+                    { cls: 'term-prompt', text: '$ ', suffix: { cls: 'term-cmd', text: 'whoami' } },
+                    { cls: 'term-cyan',   text: 'RainyinSaiGon @ University of Science, VNU-HCM' },
+                    { cls: 'term-out',    text: 'TypeScript · Go · Python' },
                     { cls: 'term-out',    text: '' },
-                    { cls: 'term-prompt', text: '$ ', suffix: { cls: 'term-cmd', text: 'go run bench/db_query.go' } },
-                    { cls: 'term-out',    text: 'Connecting to PostgreSQL... ok' },
-                    { cls: 'term-yellow', text: '⚡ Query optimised  2.3ms  (was 180ms)' },
-                    { cls: 'term-green',  text: '✓ Index scan   rows=50k  cost=0.42' },
+                    { cls: 'term-prompt', text: '$ ', suffix: { cls: 'term-cmd', text: 'git clone github.com/dinhdaivu/PetCareX' } },
+                    { cls: 'term-out',    text: 'Cloning into \'PetCareX\'...' },
+                    { cls: 'term-green',  text: '✓ Resolving deltas: 100% (312/312)' },
+                    { cls: 'term-prompt', text: '$ ', suffix: { cls: 'term-cmd', text: 'cd PetCareX && go run .' } },
+                    { cls: 'term-green',  text: '✓ Server running on :8080' },
+                    { cls: 'term-out',    text: 'POST /api/pets/register   201  4.2ms' },
+                    { cls: 'term-out',    text: 'GET  /api/health          200  0.8ms' },
                     { cls: 'term-out',    text: '' },
-                    { cls: 'term-prompt', text: '$ ', suffix: { cls: 'term-cmd', text: './server --port 8080' } },
-                    { cls: 'term-green',  text: '✓ Listening on :8080' },
-                    { cls: 'term-out',    text: 'GET /api/predict   200  1.1ms' },
-                    { cls: 'term-out',    text: 'GET /api/explain   200  3.4ms' },
+                    { cls: 'term-prompt', text: '$ ', suffix: { cls: 'term-cmd', text: 'python xai/explain.py --model rf' } },
+                    { cls: 'term-out',    text: 'Running SHAP analysis...' },
+                    { cls: 'term-yellow', text: '⚡ Top feature: vaccination_status  (0.42)' },
+                    { cls: 'term-yellow', text: '⚡ Top feature: last_visit_days      (0.31)' },
+                    { cls: 'term-green',  text: '✓ Report saved → reports/shap_summary.html' },
                 ];
 
                 const out = document.getElementById('term-output');
-                const cursor = document.getElementById('term-cursor');
                 let li = 0, ci = 0;
-
-                function makeSpan(cls, text) {
-                    const s = document.createElement('span');
-                    s.className = cls;
-                    s.textContent = text;
-                    return s;
-                }
 
                 function typeLine() {
                     if (li >= lines.length) {
-                        // pause then restart
-                        setTimeout(() => { out.innerHTML = ''; li = 0; ci = 0; typeChar(); }, 2800);
+                        setTimeout(() => { out.innerHTML = ''; li = 0; ci = 0; typeLine(); }, 3000);
                         return;
                     }
                     const line = lines[li];
                     if (ci === 0) {
-                        // start a new <span class="term-line">
                         const row = document.createElement('span');
                         row.className = 'term-line';
                         out.appendChild(row);
                     }
                     const row = out.lastElementChild;
-
-                    // If it's an empty line just move on
                     if (line.text === '' && !line.suffix) {
                         row.appendChild(document.createTextNode('\n'));
                         li++; ci = 0;
@@ -103,38 +94,31 @@
                     if (li >= lines.length) { typeLine(); return; }
                     const line = lines[li];
                     const row = out.lastElementChild;
-
-                    // Full text = prefix text + optional suffix text
                     const full = line.text + (line.suffix ? line.suffix.text : '');
 
                     if (ci < full.length) {
-                        // Render prefix and suffix with correct colours
                         row.innerHTML = '';
-                        const prefixSpan = document.createElement('span');
-                        prefixSpan.className = line.cls;
-                        prefixSpan.textContent = full.slice(0, Math.min(ci + 1, line.text.length));
-                        row.appendChild(prefixSpan);
-
+                        const pre = document.createElement('span');
+                        pre.className = line.cls;
+                        pre.textContent = full.slice(0, Math.min(ci + 1, line.text.length));
+                        row.appendChild(pre);
                         if (line.suffix && ci >= line.text.length) {
-                            const sufSpan = document.createElement('span');
-                            sufSpan.className = line.suffix.cls;
-                            sufSpan.textContent = full.slice(line.text.length, ci + 1);
-                            row.appendChild(sufSpan);
+                            const suf = document.createElement('span');
+                            suf.className = line.suffix.cls;
+                            suf.textContent = full.slice(line.text.length, ci + 1);
+                            row.appendChild(suf);
                         }
                         ci++;
-                        setTimeout(typeChar, line.cls === 'term-out' || line.cls === 'term-green' || line.cls === 'term-yellow' ? 18 : 45);
+                        const isOutput = ['term-out','term-green','term-yellow','term-cyan'].includes(line.cls);
+                        setTimeout(typeChar, isOutput ? 16 : 42);
                     } else {
-                        // Line done — append newline, move to next
                         row.appendChild(document.createTextNode('\n'));
                         li++; ci = 0;
-                        const delay = (line.text === '' ) ? 60
-                                    : (li === 5 || li === 10) ? 500   // pause before new "command"
-                                    : 120;
-                        setTimeout(typeLine, delay);
+                        const pause = (li === 4 || li === 12) ? 500 : 110;
+                        setTimeout(typeLine, pause);
                     }
                 }
 
-                // Start after a short delay
                 setTimeout(typeLine, 600);
             })();
             </script>
