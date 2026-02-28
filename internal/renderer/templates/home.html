@@ -35,7 +35,7 @@
                     <span class="ml-3 text-xs" style="color:#64748b">rainyinsaigon@vnu-hcm:~</span>
                 </div>
                 <!-- Terminal body -->
-                <div class="px-5 py-4 text-sm leading-relaxed" style="color:#e2e8f0;min-height:220px">
+                <div id="term-body" class="px-5 py-4 text-sm leading-relaxed" style="color:#e2e8f0">
                     <div id="term-output"></div>
                     <span id="term-cursor" style="display:inline-block;width:8px;height:1.1em;background:#3b9eff;vertical-align:text-bottom;animation:blink 1s step-start infinite"></span>
                 </div>
@@ -73,13 +73,37 @@
                 ];
 
                 const out = document.getElementById('term-output');
+                const body = document.getElementById('term-body');
+
+                // Pre-render all lines invisible to lock the terminal height before animating
+                lines.forEach(line => {
+                    const row = document.createElement('span');
+                    row.className = 'term-line';
+                    row.style.visibility = 'hidden';
+                    if (line.text === '' && !line.suffix) {
+                        row.innerHTML = '&nbsp;';
+                    } else {
+                        const pre = document.createElement('span');
+                        pre.className = line.cls;
+                        pre.textContent = line.text;
+                        row.appendChild(pre);
+                        if (line.suffix) {
+                            const suf = document.createElement('span');
+                            suf.className = line.suffix.cls;
+                            suf.textContent = line.suffix.text;
+                            row.appendChild(suf);
+                        }
+                    }
+                    out.appendChild(row);
+                });
+                // Lock height to final content size — no reflow during typing
+                body.style.height = body.offsetHeight + 'px';
+                out.innerHTML = '';
+
                 let li = 0, ci = 0;
 
                 function typeLine() {
-                    if (li >= lines.length) {
-                        setTimeout(() => { out.innerHTML = ''; li = 0; ci = 0; typeLine(); }, 3000);
-                        return;
-                    }
+                    if (li >= lines.length) return; // run once, stop
                     const line = lines[li];
                     if (ci === 0) {
                         const row = document.createElement('span');
@@ -88,7 +112,7 @@
                     }
                     const row = out.lastElementChild;
                     if (line.text === '' && !line.suffix) {
-                        row.appendChild(document.createTextNode('\n'));
+                        row.innerHTML = '&nbsp;';
                         li++; ci = 0;
                         setTimeout(typeLine, 80);
                         return;
@@ -97,7 +121,7 @@
                 }
 
                 function typeChar() {
-                    if (li >= lines.length) { typeLine(); return; }
+                    if (li >= lines.length) return;
                     const line = lines[li];
                     const row = out.lastElementChild;
                     const full = line.text + (line.suffix ? line.suffix.text : '');
@@ -118,7 +142,6 @@
                         const isOutput = ['term-out','term-green','term-yellow','term-cyan'].includes(line.cls);
                         setTimeout(typeChar, isOutput ? 16 : 42);
                     } else {
-                        row.appendChild(document.createTextNode('\n'));
                         li++; ci = 0;
                         const pause = (li === 4 || li === 12) ? 500 : 110;
                         setTimeout(typeLine, pause);
