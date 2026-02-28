@@ -16,45 +16,100 @@
     {{template "nav-inner" .}}
 
     <main class="max-w-5xl mx-auto px-10 py-14">
-        <div class="max-w-2xl">
-            <a href="/blog" class="inline-flex items-center gap-1 text-sm mb-10 text-gray-400 dark:text-gray-500 hover:text-blue transition-colors">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-                Blog
-            </a>
-            <h1 class="text-4xl font-extrabold leading-tight mb-3 text-gray-900 dark:text-white">{{.Title}}</h1>
-            <p class="text-sm mb-4 text-gray-400">
-                {{.Date}}
-                <span class="mx-1.5">·</span>
-                {{.ReadTime}} {{if eq .ReadTime 1}}minute{{else}}minutes{{end}} read
-            </p>
-            {{if .Tags}}
-            <div class="flex flex-wrap gap-1.5 mb-10">
-                {{range .Tags}}<a class="tag-pill" href="/blog/?tag={{.}}">{{.}}</a>{{end}}
-            </div>
-            {{else}}
-            <div class="mb-12"></div>
-            {{end}}
-            <div class="post-body">
-                {{.Content}}
-            </div>
+        <div class="xl:flex xl:gap-14 xl:items-start">
+            <div class="flex-1 min-w-0 max-w-2xl">
+                <a href="/blog" class="inline-flex items-center gap-1 text-sm mb-10 text-gray-400 dark:text-gray-500 hover:text-blue transition-colors">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+                    Blog
+                </a>
+                <h1 class="text-4xl font-extrabold leading-tight mb-3 text-gray-900 dark:text-white">{{.Title}}</h1>
+                <p class="text-sm mb-4 text-gray-400">
+                    {{.Date}}
+                    <span class="mx-1.5">·</span>
+                    {{.ReadTime}} {{if eq .ReadTime 1}}minute{{else}}minutes{{end}} read
+                </p>
+                {{if .Tags}}
+                <div class="flex flex-wrap gap-1.5 mb-10">
+                    {{range .Tags}}<a class="tag-pill" href="/blog/?tag={{.}}">{{.}}</a>{{end}}
+                </div>
+                {{else}}
+                <div class="mb-12"></div>
+                {{end}}
+                <div class="post-body">
+                    {{.Content}}
+                </div>
 
-            <!-- Prev / Next navigation -->
-            <nav class="mt-16 pt-8 border-t border-gray-200 dark:border-gray-800 grid grid-cols-2 gap-6 text-sm">
-                <div>
-                    {{if .Next}}
-                    <p class="text-gray-400 mb-1 text-xs uppercase tracking-wide font-medium">← Older</p>
-                    <a class="font-semibold transition-opacity hover:opacity-70" style="color:#1a6eb5" href="/blog/{{.Next.Slug}}">{{.Next.Title}}</a>
-                    {{end}}
-                </div>
-                <div class="text-right">
-                    {{if .Prev}}
-                    <p class="text-gray-400 mb-1 text-xs uppercase tracking-wide font-medium">Newer →</p>
-                    <a class="font-semibold transition-opacity hover:opacity-70" style="color:#1a6eb5" href="/blog/{{.Prev.Slug}}">{{.Prev.Title}}</a>
-                    {{end}}
-                </div>
-            </nav>
+                <!-- Prev / Next navigation -->
+                <nav class="mt-16 pt-8 border-t border-gray-200 dark:border-gray-800 grid grid-cols-2 gap-6 text-sm">
+                    <div>
+                        {{if .Next}}
+                        <p class="text-gray-400 mb-1 text-xs uppercase tracking-wide font-medium">← Older</p>
+                        <a class="font-semibold transition-opacity hover:opacity-70" style="color:#1a6eb5" href="/blog/{{.Next.Slug}}">{{.Next.Title}}</a>
+                        {{end}}
+                    </div>
+                    <div class="text-right">
+                        {{if .Prev}}
+                        <p class="text-gray-400 mb-1 text-xs uppercase tracking-wide font-medium">Newer →</p>
+                        <a class="font-semibold transition-opacity hover:opacity-70" style="color:#1a6eb5" href="/blog/{{.Prev.Slug}}">{{.Prev.Title}}</a>
+                        {{end}}
+                    </div>
+                </nav>
+            </div>
+            <!-- Sticky Table of Contents (populated & shown by JS when ≥2 headings exist) -->
+            <aside id="toc-sidebar" style="display:none" class="w-52 shrink-0 sticky top-10 self-start">
+                <p class="text-xs uppercase font-semibold tracking-wider text-gray-400 dark:text-gray-500 mb-3">On this page</p>
+                <nav id="toc-nav"></nav>
+            </aside>
         </div>
     </main>
+    <script>
+    (function() {
+        // ── Copy code buttons ──────────────────────────────────────
+        document.querySelectorAll('.post-body pre').forEach(function(pre) {
+            pre.style.position = 'relative';
+            var btn = document.createElement('button');
+            btn.className = 'copy-btn';
+            var copyIcon = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
+            var checkIcon = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+            btn.innerHTML = copyIcon;
+            btn.setAttribute('aria-label', 'Copy code');
+            btn.onclick = function() {
+                var code = pre.querySelector('code');
+                navigator.clipboard.writeText(code ? code.textContent : pre.textContent).then(function() {
+                    btn.innerHTML = checkIcon;
+                    btn.classList.add('copied');
+                    setTimeout(function() { btn.innerHTML = copyIcon; btn.classList.remove('copied'); }, 2000);
+                });
+            };
+            pre.appendChild(btn);
+        });
+
+        // ── Table of Contents ──────────────────────────────────────
+        var post = document.querySelector('.post-body');
+        if (!post) return;
+        var headings = Array.from(post.querySelectorAll('h2, h3'));
+        if (headings.length < 2) return;
+        var sidebar = document.getElementById('toc-sidebar');
+        var nav = document.getElementById('toc-nav');
+        if (!sidebar || !nav) return;
+        sidebar.style.display = 'block';
+        headings.forEach(function(h, i) {
+            if (!h.id) h.id = 'h-' + i;
+            var a = document.createElement('a');
+            a.href = '#' + h.id;
+            a.textContent = h.textContent;
+            a.className = 'toc-link' + (h.tagName === 'H3' ? ' toc-h3' : '');
+            nav.appendChild(a);
+        });
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                var link = nav.querySelector('a[href="#' + entry.target.id + '"]');
+                if (link) link.classList.toggle('toc-active', entry.isIntersecting);
+            });
+        }, { rootMargin: '-5% 0px -80% 0px' });
+        headings.forEach(function(h) { observer.observe(h); });
+    })();
+    </script>
 
     {{template "footer" .}}
 </body>

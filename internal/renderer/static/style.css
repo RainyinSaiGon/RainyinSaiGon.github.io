@@ -110,3 +110,86 @@
 .result-card {
     animation: fade-up 0.18s ease both;
 }
+
+/* ── Copy code button ────────────────────────────────────────── */
+.copy-btn {
+    position: absolute;
+    top: 0.55rem;
+    right: 0.55rem;
+    padding: 0.25rem 0.45rem;
+    background: #2d3f55;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #94a3b8;
+    display: flex;
+    align-items: center;
+    font-family: inherit;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+.copy-btn:hover { background: #3b5268; color: #e2e8f0; }
+.copy-btn.copied { color: #4ade80; }
+
+/* ── Table of Contents sidebar ───────────────────────────────── */
+@media (max-width: 1279px) { #toc-sidebar { display: none !important; } }
+.toc-link {
+    display: block;
+    color: #94a3b8;
+    text-decoration: none;
+    padding: 0.2rem 0 0.2rem 0.65rem;
+    border-left: 2px solid transparent;
+    font-size: 0.82rem;
+    line-height: 1.55;
+    transition: color 0.15s ease, border-color 0.15s ease;
+}
+.toc-link.toc-h3 { padding-left: 1.3rem; font-size: 0.77rem; }
+.toc-link:hover { color: #1a6eb5; }
+.toc-link.toc-active { color: #1a6eb5; border-left-color: #1a6eb5; }
+.dark .toc-link { color: #64748b; }
+.dark .toc-link:hover, .dark .toc-link.toc-active { color: #7eb8f7; border-left-color: #7eb8f7; }
+
+/* ── Skill badges ────────────────────────────────────────────── */
+.skill-badge {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 0.28rem 0.75rem;
+    border-radius: 999px;
+}
+.dark .skill-badge { filter: brightness(0.4) saturate(1.6) contrast(1.2); }
+
+/* ── Timeline ────────────────────────────────────────────────── */
+.timeline { position: relative; padding-left: 1.5rem; }
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 0.35rem;
+    top: 0.4rem;
+    bottom: 0;
+    width: 2px;
+    background: #c8dff7;
+}
+.dark .timeline::before { background: #1e3a5f; }
+.timeline-item { position: relative; padding-bottom: 1.6rem; }
+.timeline-item:last-child { padding-bottom: 0; }
+.timeline-dot {
+    position: absolute;
+    left: -1.24rem;
+    top: 0.3rem;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #1a6eb5;
+    border: 2px solid #fff;
+}
+.dark .timeline-dot { border-color: #030712; }
+.timeline-year {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #1a6eb5;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.2rem;
+}
+.dark .timeline-year { color: #7eb8f7; }

@@ -14,26 +14,72 @@
 
     <main class="max-w-5xl mx-auto px-10 py-14">
         <div class="max-w-2xl">
-        <h1 class="text-4xl font-extrabold mb-8 text-gray-900 dark:text-white">About me</h1>
+        <h1 class="text-4xl font-extrabold mb-6 text-gray-900 dark:text-white">About me</h1>
 
-        <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-5">I'm RainyinSaiGon, a student and software developer based in Ho Chi Minh City, Vietnam. At school, I research machine learning algorithms and applications. During my free time, I usually work on side projects or learn new techniques. My goal is to create helpful tools and applications with intuitive and presentable interfaces.</p>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-10">I'm RainyinSaiGon, a CS Junior (Year 3) at VNU-HCM University of Science, Ho Chi Minh City. I work at the intersection of software engineering, databases, performance, and Explainable AI. This is where I share projects and thoughts on building systems that are fast, reliable, and understandable.</p>
 
-        <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-10">I'm glad you've come across my website. This is where I organize and share my thoughts and experiences. I'll try to write about my notes or opinions about certain topics I recently encountered, especially those that I found interesting or had the most trouble articulating.</p>
+        <!-- Tech stack -->
+        <h2 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">Tech stack</h2>
+        <div class="flex flex-wrap gap-2 mb-10">
+            <span class="skill-badge" style="background:#e0f7fa;color:#006064">Go</span>
+            <span class="skill-badge" style="background:#dbeafe;color:#1d4ed8">TypeScript</span>
+            <span class="skill-badge" style="background:#fef9c3;color:#854d0e">Python</span>
+            <span class="skill-badge" style="background:#ede9fe;color:#4c1d95">PostgreSQL</span>
+            <span class="skill-badge" style="background:#f1f5f9;color:#475569">C</span>
+            <span class="skill-badge" style="background:#ffedd5;color:#c2410c">Git</span>
+            <span class="skill-badge" style="background:#f0fdf4;color:#166534">SHAP / XAI</span>
+        </div>
+
+        <!-- Timeline -->
+        <h2 class="text-xl font-bold mb-5 text-gray-900 dark:text-white">Timeline</h2>
+        <div class="timeline mb-12">
+            <div class="timeline-item">
+                <span class="timeline-dot"></span>
+                <p class="timeline-year">2023</p>
+                <p class="text-sm text-gray-700 dark:text-gray-300">Enrolled at VNU-HCM University of Science, CS major</p>
+            </div>
+            <div class="timeline-item">
+                <span class="timeline-dot"></span>
+                <p class="timeline-year">2024</p>
+                <p class="text-sm text-gray-700 dark:text-gray-300">Built Dorm Homestay DSS — information systems project with recommendation engine</p>
+            </div>
+            <div class="timeline-item">
+                <span class="timeline-dot"></span>
+                <p class="timeline-year">2025</p>
+                <p class="text-sm text-gray-700 dark:text-gray-300">Studied database internals, XAI/SHAP analysis, and performance engineering</p>
+            </div>
+            <div class="timeline-item">
+                <span class="timeline-dot"></span>
+                <p class="timeline-year">2026</p>
+                <p class="text-sm text-gray-700 dark:text-gray-300">Year 3 — built this site with a custom Go SSG, deeper into databases and Go</p>
+            </div>
+        </div>
+
+        <!-- Contact -->
+        <h2 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">Contact</h2>
+        <div class="info-card mb-10">
+            <p class="text-gray-700 dark:text-gray-300 mb-4">Feel free to reach out if you want to chat about software, databases, ML, or building things.</p>
+            <div class="flex flex-wrap gap-3">
+                <a class="inline-flex items-center gap-2 text-sm font-semibold rounded-lg px-4 py-2 border transition-colors hover:opacity-80" style="color:#1a6eb5;border-color:#1a6eb5" href="https://github.com/RainyinSaiGon" target="_blank" rel="noopener">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                    GitHub
+                </a>
+                <a class="inline-flex items-center gap-2 text-sm font-semibold rounded-lg px-4 py-2 border transition-colors hover:opacity-80" style="color:#1a6eb5;border-color:#1a6eb5" href="mailto:your@email.com">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                    Email
+                </a>
+            </div>
+        </div>
 
         <!-- Looking for something? -->
-        <div class="info-card mb-10">
+        <div class="info-card">
             <h2 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">Looking for something?</h2>
             <ul class="space-y-2 text-gray-700 dark:text-gray-300">
                 <li>Read my <a class="font-medium hover:underline" style="color:#1a6eb5" href="/blog">blog posts</a> here.</li>
                 <li>View my <a class="font-medium hover:underline" style="color:#1a6eb5" href="/works">projects</a> here or on my <a class="font-medium hover:underline" style="color:#1a6eb5" href="https://github.com/RainyinSaiGon">GitHub</a>.</li>
-                <li>My setup and programs are available in my <a class="font-medium hover:underline" style="color:#1a6eb5" href="https://github.com/RainyinSaiGon">dotfiles</a>.</li>
             </ul>
         </div>
 
-        <!-- Tech stack -->
-        <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Tech stack</h2>
-        <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-5">Go is my primary language for building this site and backend tooling. I also work with JavaScript, Python, and C. I enjoy understanding how things work at a low level and reaching for the right tool for each job.</p>
-        <p class="text-gray-600 dark:text-gray-400 leading-relaxed">For personal projects, I prefer building from scratch for educational purposes. For front-ends I enjoy working with modern frameworks, and for back-ends I favour simplicity and performance. This site is built with a custom static-site generator written in Go because of its simplicity, speed, and full control over the output.</p>
         </div>
     </main>
 
