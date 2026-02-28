@@ -33,3 +33,20 @@ type HomeData struct {
 	Posts    []Post
 	Projects []Project
 }
+
+// PostPageData holds a post and its surrounding posts for prev/next navigation.
+type PostPageData struct {
+	Post
+	Prev *Post
+	Next *Post
+}
+
+// SearchEntry is a lightweight record written into search.json for browser-side search.
+type SearchEntry struct {
+	Title       string   `json:"title"`
+	Slug        string   `json:"slug"`
+	Description string   `json:"description"`
+	Date        string   `json:"date"`
+	Tags        []string `json:"tags"`
+	ReadTime    int      `json:"readTime"`
+}

@@ -55,9 +55,9 @@ func Build(cfg Config) error {
 	if err := r.RenderBlogList(posts); err != nil {
 		return fmt.Errorf("rendering blog list: %w", err)
 	}
-	for _, p := range posts {
-		if err := r.RenderPost(p); err != nil {
-			return fmt.Errorf("rendering post %s: %w", p.Slug, err)
+	for i := range posts {
+		if err := r.RenderPost(posts, i); err != nil {
+			return fmt.Errorf("rendering post %s: %w", posts[i].Slug, err)
 		}
 	}
 	if err := r.RenderWorks(projects); err != nil {
@@ -65,6 +65,21 @@ func Build(cfg Config) error {
 	}
 	if err := r.RenderAbout(); err != nil {
 		return fmt.Errorf("rendering about: %w", err)
+	}
+	if err := r.Render404(); err != nil {
+		return fmt.Errorf("rendering 404: %w", err)
+	}
+	if err := r.RenderSearch(); err != nil {
+		return fmt.Errorf("rendering search: %w", err)
+	}
+	if err := r.GenerateSearchJSON(posts); err != nil {
+		return fmt.Errorf("generating search.json: %w", err)
+	}
+	if err := r.GenerateRSS(posts); err != nil {
+		return fmt.Errorf("generating RSS: %w", err)
+	}
+	if err := r.GenerateSitemap(posts, projects); err != nil {
+		return fmt.Errorf("generating sitemap: %w", err)
 	}
 
 	fmt.Printf("Built %d post(s), %d project(s) → %s/\n", len(posts), len(projects), cfg.OutputDir)

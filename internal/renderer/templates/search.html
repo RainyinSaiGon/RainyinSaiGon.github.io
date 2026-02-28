@@ -1,0 +1,102 @@
+{{define "search"}}<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{template "head" .}}
+    <title>Search — RainyinSaiGon</title>
+    <meta name="description" content="Search blog posts on RainyinSaiGon.">
+    <meta property="og:title" content="Search — RainyinSaiGon">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://rainyinsaigon.github.io/search/">
+</head>
+<body class="font-sans text-gray-900 bg-white dark:bg-gray-950 dark:text-gray-100">
+    {{template "nav-inner" .}}
+
+    <main class="max-w-5xl mx-auto px-10 py-14">
+        <h1 class="text-3xl font-extrabold mb-8 dark:text-white" style="color:#0d2a4a">Search</h1>
+
+        <div class="max-w-2xl">
+            <!-- Search input -->
+            <div class="relative mb-10">
+                <input
+                    id="search-input"
+                    type="search"
+                    placeholder="Search posts by title, tag, or description…"
+                    autocomplete="off"
+                    class="w-full px-4 py-3 pr-10 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 dark:text-gray-100 shadow-sm focus:outline-none focus:ring-2 text-base"
+                    style="--tw-ring-color:#1a6eb5"
+                >
+                <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">&#128269;</span>
+            </div>
+
+            <!-- Results -->
+            <div id="search-results"></div>
+            <p id="search-empty" class="text-gray-400 hidden">No posts matched your search.</p>
+            <p id="search-hint" class="text-gray-400 text-sm">Start typing to search across all posts.</p>
+        </div>
+    </main>
+
+    {{template "footer" .}}
+
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js"></script>
+    <script>
+    (function() {
+        const input   = document.getElementById('search-input');
+        const results = document.getElementById('search-results');
+        const empty   = document.getElementById('search-empty');
+        const hint    = document.getElementById('search-hint');
+
+        let fuse = null;
+
+        // Load search index
+        fetch('/search.json')
+            .then(r => r.json())
+            .then(data => {
+                fuse = new Fuse(data, {
+                    keys: [
+                        { name: 'title',       weight: 0.5 },
+                        { name: 'description', weight: 0.3 },
+                        { name: 'tags',        weight: 0.2 }
+                    ],
+                    threshold: 0.4,
+                    includeMatches: true
+                });
+                // Auto-run search if query is in URL
+                const q = new URLSearchParams(location.search).get('q');
+                if (q) { input.value = q; runSearch(q); }
+            });
+
+        input.addEventListener('input', () => {
+            const q = input.value.trim();
+            history.replaceState(null, '', q ? '?q=' + encodeURIComponent(q) : location.pathname);
+            runSearch(q);
+        });
+
+        function runSearch(q) {
+            results.innerHTML = '';
+            if (!q || !fuse) { empty.classList.add('hidden'); hint.classList.remove('hidden'); return; }
+            hint.classList.add('hidden');
+            const hits = fuse.search(q, { limit: 20 });
+            if (hits.length === 0) { empty.classList.remove('hidden'); return; }
+            empty.classList.add('hidden');
+            hits.forEach(({ item }) => {
+                const el = document.createElement('article');
+                el.className = 'mb-10 pb-10 border-b border-gray-100 dark:border-gray-800 last:border-0 last:mb-0 last:pb-0';
+                el.innerHTML = `
+                    <h2 class="text-xl font-bold leading-snug mb-1">
+                        <a class="hover:underline" style="color:#1a6eb5" href="/blog/${item.slug}">${escapeHTML(item.title)}</a>
+                    </h2>
+                    <p class="text-sm text-gray-400 mb-2">${escapeHTML(item.date)} &middot; ${item.readTime} ${item.readTime === 1 ? 'minute' : 'minutes'} read</p>
+                    ${item.tags && item.tags.length ? '<div class="flex flex-wrap gap-1.5 mb-3">' + item.tags.map(t => `<span class="text-xs px-2.5 py-0.5 rounded-full font-medium" style="background:#e0edff;color:#1a6eb5">${escapeHTML(t)}</span>`).join('') + '</div>' : ''}
+                    <p class="text-gray-600 dark:text-gray-400 leading-relaxed">${escapeHTML(item.description)}</p>
+                `;
+                results.appendChild(el);
+            });
+        }
+
+        function escapeHTML(s) {
+            return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+        }
+    })();
+    </script>
+</body>
+</html>{{end}}

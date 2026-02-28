@@ -3,8 +3,13 @@
 <head>
     {{template "head" .}}
     <title>Blog — RainyinSaiGon</title>
+    <meta name="description" content="Articles on Go, AWS, cloud architecture, and explainable AI.">
+    <meta property="og:title" content="Blog — RainyinSaiGon">
+    <meta property="og:description" content="Articles on Go, AWS, cloud architecture, and explainable AI.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://rainyinsaigon.github.io/blog/">
 </head>
-<body class="font-sans text-gray-900 bg-white">
+<body class="font-sans text-gray-900 bg-white dark:bg-gray-950 dark:text-gray-100">
     {{template "nav-inner" .}}
 
     <main class="max-w-5xl mx-auto px-10 py-16">
@@ -20,7 +25,7 @@
                 data-tags="{{range $i, $t := .Tags}}{{if $i}},{{end}}{{$t}}{{end}}"
             >
                 <h2 class="text-xl font-bold leading-snug mb-2">
-                    <a class="hover:underline" style="color:#0d2a4a" href="/blog/{{.Slug}}">{{.Title}}</a>
+                    <a class="hover:underline dark:text-blue-300" style="color:#0d2a4a" href="/blog/{{.Slug}}">{{.Title}}</a>
                 </h2>
                 <p class="text-sm mb-3" style="color:#9ca3af">
                     {{.Date}}

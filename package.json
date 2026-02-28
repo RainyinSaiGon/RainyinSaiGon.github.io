@@ -1,0 +1,11 @@
+{
+  "name": "portfolio-site",
+  "private": true,
+  "scripts": {
+    "build:css": "tailwindcss -i assets/input.css -o docs/tailwind.css --minify",
+    "watch:css": "tailwindcss -i assets/input.css -o docs/tailwind.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.0"
+  }
+}

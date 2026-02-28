@@ -1,50 +1,74 @@
 {{define "head"}}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="https://cdn.tailwindcss.com"></script>
+<link rel="alternate" type="application/rss+xml" title="RainyinSaiGon RSS" href="/rss.xml">
+<link rel="stylesheet" href="/tailwind.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Google+Sans+Display:wght@400;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/style.css">
 <script>
-  tailwind.config = {
-    theme: {
-      extend: {
-        fontFamily: { sans: ['"Google Sans"', 'ui-sans-serif', 'system-ui'] },
-        colors: {
-          blue: { DEFAULT: '#1a6eb5', light: '#3b9eff', bg: '#ddeeff' },
-          navy: '#0d2a4a'
-        }
-      }
+  // Apply saved dark mode preference before paint to prevent flash
+  (function() {
+    if (localStorage.getItem('theme') === 'dark' ||
+        (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
     }
-  }
+  })();
 </script>
 {{end}}
 
 {{define "nav-home"}}
 <nav class="flex items-center justify-between px-10 py-5 max-w-5xl mx-auto">
-    <a class="font-bold text-lg text-navy hover:text-blue" href="/">RainyinSaiGon</a>
-    <div class="flex gap-8">
-        <a class="font-medium text-gray-800 hover:text-blue" href="/works">Works</a>
-        <a class="font-medium text-gray-800 hover:text-blue" href="/blog">Blog</a>
-        <a class="font-medium text-gray-800 hover:text-blue" href="/about">About</a>
+    <a class="font-bold text-lg text-navy dark:text-blue-300 hover:text-blue" href="/">RainyinSaiGon</a>
+    <div class="flex items-center gap-6">
+        <a class="font-medium text-gray-800 dark:text-gray-200 hover:text-blue" href="/works">Works</a>
+        <a class="font-medium text-gray-800 dark:text-gray-200 hover:text-blue" href="/blog">Blog</a>
+        <a class="font-medium text-gray-800 dark:text-gray-200 hover:text-blue" href="/about">About</a>
+        <a class="font-medium text-gray-800 dark:text-gray-200 hover:text-blue" href="/search" title="Search">&#128269;</a>
+        <button id="theme-toggle" onclick="toggleTheme()" class="w-8 h-8 flex items-center justify-center rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" title="Toggle dark mode" aria-label="Toggle dark mode">
+            <span class="dark:hidden">☀️</span><span class="hidden dark:inline">🌙</span>
+        </button>
     </div>
 </nav>
 {{end}}
 
 {{define "nav-inner"}}
-<nav class="flex items-center justify-between px-10 py-5 max-w-5xl mx-auto border-b border-gray-200">
-    <a class="font-bold text-lg text-navy hover:text-blue" href="/">RainyinSaiGon</a>
-    <div class="flex gap-8">
-        <a class="font-medium text-gray-800 hover:text-blue" href="/works">Works</a>
-        <a class="font-medium text-gray-800 hover:text-blue" href="/blog">Blog</a>
-        <a class="font-medium text-gray-800 hover:text-blue" href="/about">About</a>
+<nav class="flex items-center justify-between px-10 py-5 max-w-5xl mx-auto border-b border-gray-200 dark:border-gray-700">
+    <a class="font-bold text-lg dark:text-blue-300 hover:text-blue" style="color:#0d2a4a" href="/">RainyinSaiGon</a>
+    <div class="flex items-center gap-6">
+        <a class="font-medium text-gray-800 dark:text-gray-200 hover:text-blue" href="/works">Works</a>
+        <a class="font-medium text-gray-800 dark:text-gray-200 hover:text-blue" href="/blog">Blog</a>
+        <a class="font-medium text-gray-800 dark:text-gray-200 hover:text-blue" href="/about">About</a>
+        <a class="font-medium text-gray-800 dark:text-gray-200 hover:text-blue" href="/search" title="Search">&#128269;</a>
+        <button onclick="toggleTheme()" class="w-8 h-8 flex items-center justify-center rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" title="Toggle dark mode" aria-label="Toggle dark mode">
+            <span class="dark:hidden">☀️</span><span class="hidden dark:inline">🌙</span>
+        </button>
     </div>
 </nav>
 {{end}}
 
 {{define "footer"}}
-<footer class="max-w-5xl mx-auto px-10 py-8 mt-20 border-t border-gray-200 text-gray-500 text-sm">
-    <p>© 2026 RainyinSaiGon. Content on this site is licensed under <a class="underline hover:text-blue" href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.</p>
+<footer class="max-w-5xl mx-auto px-10 py-8 mt-20 border-t border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 text-sm">
+    <div class="flex flex-wrap items-center justify-between gap-4">
+        <p>© 2026 RainyinSaiGon. Licensed under <a class="underline hover:text-blue" href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.</p>
+        <div class="flex gap-5">
+            <a class="hover:text-blue" href="https://github.com/RainyinSaiGon">GitHub</a>
+            <a class="hover:text-blue" href="/rss.xml">RSS</a>
+            <a class="hover:text-blue" href="/sitemap.xml">Sitemap</a>
+        </div>
+    </div>
 </footer>
+<script>
+function toggleTheme() {
+    const html = document.documentElement;
+    if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+    } else {
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+    }
+}
+</script>
 {{end}}

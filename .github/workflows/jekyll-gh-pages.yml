@@ -29,6 +29,18 @@ jobs:
       - name: Build site
         run: go run .
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install Node dependencies
+        run: npm ci
+
+      - name: Compile Tailwind CSS
+        run: npx tailwindcss -i assets/input.css -o docs/tailwind.css --minify
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
