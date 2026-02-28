@@ -12,6 +12,7 @@ type Post struct {
 	Date        string
 	DateParsed  time.Time
 	Description string
+	Tags        []string      // topic tags e.g. ["Go", "AWS"]
 	ReadTime    int           // estimated minutes to read
 	Content     template.HTML // raw HTML, not escaped in templates
 }

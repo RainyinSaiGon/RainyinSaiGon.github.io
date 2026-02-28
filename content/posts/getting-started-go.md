@@ -1,6 +1,7 @@
 title: Getting Started with Go
 date: 2026-02-28
 description: A quick introduction to building static sites with Go
+tags: Go, Static Site
 ---
 
 <h2>Why Go for Static Site Generation?</h2>

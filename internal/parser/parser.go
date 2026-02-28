@@ -112,6 +112,12 @@ func parsePost(slug, raw string) model.Post {
 			}
 		case "description":
 			post.Description = val
+		case "tags":
+			for _, tag := range strings.Split(val, ",") {
+				if t := strings.TrimSpace(tag); t != "" {
+					post.Tags = append(post.Tags, t)
+				}
+			}
 		}
 	}
 

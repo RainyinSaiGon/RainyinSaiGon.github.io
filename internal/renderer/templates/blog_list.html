@@ -7,20 +7,33 @@
 <body class="font-sans text-gray-900 bg-white">
     {{template "nav-inner" .}}
 
-    <main class="max-w-2xl mx-auto px-6 py-16">
-        <h1 class="text-4xl font-extrabold mb-14" style="color:#0d2a4a">Blog</h1>
+    <main class="max-w-5xl mx-auto px-10 py-16">
         {{if .Posts}}
-        <div>
+
+        <!-- Topic filters -->
+        <div id="tag-filters" class="flex flex-wrap gap-2 mb-12"></div>
+
+        <div class="max-w-2xl" id="post-list">
             {{range .Posts}}
-            <article class="mb-14 pb-14 border-b border-gray-100 last:border-0 last:mb-0 last:pb-0">
+            <article
+                class="mb-14 pb-14 border-b border-gray-100 last:border-0 last:mb-0 last:pb-0"
+                data-tags="{{range $i, $t := .Tags}}{{if $i}},{{end}}{{$t}}{{end}}"
+            >
                 <h2 class="text-xl font-bold leading-snug mb-2">
                     <a class="hover:underline" style="color:#0d2a4a" href="/blog/{{.Slug}}">{{.Title}}</a>
                 </h2>
-                <p class="text-sm mb-4" style="color:#9ca3af">
+                <p class="text-sm mb-3" style="color:#9ca3af">
                     {{.Date}}
                     <span class="mx-1.5">&#183;</span>
                     {{.ReadTime}} {{if eq .ReadTime 1}}minute{{else}}minutes{{end}} read
                 </p>
+                {{if .Tags}}
+                <div class="flex flex-wrap gap-1.5 mb-4">
+                    {{range .Tags}}
+                    <span class="text-xs px-2.5 py-0.5 rounded-full font-medium" style="background:#e0edff;color:#1a6eb5">{{.}}</span>
+                    {{end}}
+                </div>
+                {{end}}
                 {{if .Description}}
                 <p class="text-gray-600 leading-relaxed text-base mb-5">{{.Description}}</p>
                 {{end}}
@@ -28,11 +41,82 @@
             </article>
             {{end}}
         </div>
+
+        <p id="no-results" class="text-gray-400 hidden">No posts found for this topic.</p>
+
         {{else}}
         <p class="text-gray-400">No blog posts yet. Check back soon!</p>
         {{end}}
     </main>
 
     {{template "footer" .}}
+
+    <script>
+    (function () {
+        const articles = Array.from(document.querySelectorAll('#post-list article'));
+        const filterContainer = document.getElementById('tag-filters');
+        const noResults = document.getElementById('no-results');
+
+        // Collect unique tags from all posts
+        const tagSet = new Set();
+        articles.forEach(a => {
+            const raw = a.dataset.tags || '';
+            raw.split(',').map(t => t.trim()).filter(Boolean).forEach(t => tagSet.add(t));
+        });
+
+        if (tagSet.size === 0) { filterContainer.remove(); return; }
+
+        let active = null;
+
+        // Pre-select tag from URL ?tag=
+        const urlTag = new URLSearchParams(location.search).get('tag');
+        if (urlTag && tagSet.has(urlTag)) active = urlTag;
+
+        function renderFilters() {
+            filterContainer.innerHTML = '';
+
+            // "All" pill
+            const all = document.createElement('button');
+            all.textContent = 'All';
+            all.className = 'px-4 py-1.5 rounded-full text-sm font-medium transition-colors';
+            applyStyle(all, active === null);
+            all.onclick = () => { active = null; history.replaceState(null,'',location.pathname); update(); };
+            filterContainer.appendChild(all);
+
+            tagSet.forEach(tag => {
+                const btn = document.createElement('button');
+                btn.textContent = tag;
+                btn.className = 'px-4 py-1.5 rounded-full text-sm font-medium transition-colors';
+                applyStyle(btn, active === tag);
+                btn.onclick = () => { active = tag; history.replaceState(null,'','?tag='+encodeURIComponent(tag)); update(); };
+                filterContainer.appendChild(btn);
+            });
+        }
+
+        function applyStyle(btn, isActive) {
+            if (isActive) {
+                btn.style.background = '#1a6eb5';
+                btn.style.color = '#fff';
+            } else {
+                btn.style.background = '#e0edff';
+                btn.style.color = '#1a6eb5';
+            }
+        }
+
+        function update() {
+            renderFilters();
+            let visible = 0;
+            articles.forEach(a => {
+                const tags = (a.dataset.tags || '').split(',').map(t => t.trim());
+                const show = active === null || tags.includes(active);
+                a.style.display = show ? '' : 'none';
+                if (show) visible++;
+            });
+            noResults.classList.toggle('hidden', visible > 0);
+        }
+
+        if (active !== null) update(); else renderFilters();
+    })();
+    </script>
 </body>
 </html>{{end}}

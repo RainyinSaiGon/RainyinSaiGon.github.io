@@ -7,14 +7,27 @@
 <body class="font-sans text-gray-900 bg-white">
     {{template "nav-inner" .}}
 
-    <main class="max-w-3xl mx-auto px-6 py-14">
-        <a href="/blog" class="inline-flex items-center gap-1 text-sm text-gray-400 hover:text-blue mb-8">← Blog</a>
-        <div class="mb-10">
-            <h1 class="text-4xl font-extrabold text-navy leading-tight mb-3">{{.Title}}</h1>
-            <p class="text-sm text-gray-400">{{.Date}}</p>
-        </div>
-        <div class="prose prose-slate max-w-none post-body">
-            {{.Content}}
+    <main class="max-w-5xl mx-auto px-10 py-14">
+        <div class="max-w-2xl">
+            <a href="/blog" class="inline-flex items-center gap-1 text-sm mb-10" style="color:#9ca3af">&#8592; Blog</a>
+            <h1 class="text-4xl font-extrabold leading-tight mb-3" style="color:#0d2a4a">{{.Title}}</h1>
+            <p class="text-sm mb-4" style="color:#9ca3af">
+                {{.Date}}
+                <span class="mx-1.5">&#183;</span>
+                {{.ReadTime}} {{if eq .ReadTime 1}}minute{{else}}minutes{{end}} read
+            </p>
+            {{if .Tags}}
+            <div class="flex flex-wrap gap-1.5 mb-10">
+                {{range .Tags}}
+                <a class="text-xs px-2.5 py-0.5 rounded-full font-medium" style="background:#e0edff;color:#1a6eb5" href="/blog/?tag={{.}}">{{.}}</a>
+                {{end}}
+            </div>
+            {{else}}
+            <div class="mb-12"></div>
+            {{end}}
+            <div class="post-body">
+                {{.Content}}
+            </div>
         </div>
     </main>
 
