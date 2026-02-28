@@ -1,0 +1,33 @@
+{{define "blog_list"}}<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog — RainyinSaiGon</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    {{template "nav-inner" .}}
+
+    <div class="page-wrap">
+        <h1>Blog</h1>
+        {{if .Posts}}
+        <ul class="posts-list">
+            {{range .Posts}}
+            <li>
+                <span class="post-date">{{.Date}}</span>
+                <div>
+                    <a class="post-link" href="/blog/{{.Slug}}">{{.Title}}</a>
+                    {{if .Description}}<span class="post-desc">{{.Description}}</span>{{end}}
+                </div>
+            </li>
+            {{end}}
+        </ul>
+        {{else}}
+        <p style="color:var(--muted)">No blog posts yet. Check back soon!</p>
+        {{end}}
+    </div>
+
+    {{template "footer" .}}
+</body>
+</html>{{end}}

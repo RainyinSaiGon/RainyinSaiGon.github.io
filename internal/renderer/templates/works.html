@@ -1,0 +1,38 @@
+{{define "works"}}<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Works — RainyinSaiGon</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    {{template "nav-inner" .}}
+
+    <div class="page-wrap" style="max-width:1100px">
+        <h1>Works</h1>
+        {{if .Projects}}
+        <div class="works-grid">
+            {{range .Projects}}
+            <div class="work-card">
+                {{if .Image}}<img class="work-card-img" src="{{.Image}}" alt="{{.Title}}">
+                {{else}}<div class="work-card-img"></div>{{end}}
+                <div class="work-card-body">
+                    <div class="work-card-title">{{.Title}}</div>
+                    <div class="work-card-desc">{{.Description}}</div>
+                    <div class="work-card-links">
+                        {{if .CodeURL}}<a class="work-card-btn" href="{{.CodeURL}}">Code</a>{{end}}
+                        {{if .DemoURL}}<a class="work-card-btn" href="{{.DemoURL}}">Demo</a>{{end}}
+                    </div>
+                </div>
+            </div>
+            {{end}}
+        </div>
+        {{else}}
+        <p style="color:var(--muted)">No projects yet. Check back soon!</p>
+        {{end}}
+    </div>
+
+    {{template "footer" .}}
+</body>
+</html>{{end}}

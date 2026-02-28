@@ -1,0 +1,33 @@
+{{define "about"}}<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About — RainyinSaiGon</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    {{template "nav-inner" .}}
+
+    <div class="page-wrap">
+        <h1>About</h1>
+        <div class="about-content">
+            <p>Hi! I'm RainyinSaiGon — a developer interested in building fast, efficient, and elegant software.</p>
+
+            <h2>What I work on</h2>
+            <p>I enjoy working with Go, web technologies, and systems programming. I like understanding how things work at a fundamental level and building tools that solve real problems.</p>
+
+            <h2>Projects</h2>
+            <p>Take a look at my <a href="/works">works page</a> to see what I've been building.</p>
+
+            <h2>Writing</h2>
+            <p>I occasionally write about things I find interesting on my <a href="/blog">blog</a>.</p>
+
+            <h2>Contact</h2>
+            <p>Find me on <a href="https://github.com/RainyinSaiGon">GitHub</a>.</p>
+        </div>
+    </div>
+
+    {{template "footer" .}}
+</body>
+</html>{{end}}

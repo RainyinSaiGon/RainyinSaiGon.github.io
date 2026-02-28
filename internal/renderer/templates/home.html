@@ -1,0 +1,94 @@
+{{define "home"}}<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RainyinSaiGon</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="hero-bg">
+        {{template "nav-home" .}}
+        <div class="hero-body">
+            <div class="hero-left">
+                <h1>Hi, I'm RainyinSaiGon</h1>
+                <p>I build fast, elegant, and performant software.</p>
+                <p>This is where I share my projects and thoughts, mostly about code and technology.</p>
+                <div class="hero-cta">
+                    <a class="btn-primary" href="/blog">My blog </a>
+                    <a class="btn-outline" href="/works">My projects</a>
+                </div>
+            </div>
+            <div class="hero-right">
+                <div class="blob"></div>
+                <div class="tiles">
+                    <div class="tile"></div>
+                    <div class="tile"></div>
+                    <div class="tile"></div>
+                    <div class="tile"></div>
+                    <div class="tile"></div>
+                    <div class="tile"></div>
+                    <div class="tile"></div>
+                    <div class="tile"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <svg class="wave" viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <path d="M0,0 C360,60 1080,60 1440,0 L1440,60 L0,60 Z" fill="#f0f7ff"/>
+    </svg>
+
+    {{if .Projects}}
+    <div class="works-bg">
+        <div class="works-inner">
+            <div class="section-header">
+                <h2>Recent works</h2>
+                <a href="/works">All works →</a>
+            </div>
+            <div class="works-grid">
+                {{range .Projects}}
+                <div class="work-card">
+                    {{if .Image}}<img class="work-card-img" src="{{.Image}}" alt="{{.Title}}">
+                    {{else}}<div class="work-card-img"></div>{{end}}
+                    <div class="work-card-body">
+                        <div class="work-card-title">{{.Title}}</div>
+                        <div class="work-card-desc">{{.Description}}</div>
+                        <div class="work-card-links">
+                            {{if .CodeURL}}<a class="work-card-btn" href="{{.CodeURL}}">Code</a>{{end}}
+                            {{if .DemoURL}}<a class="work-card-btn" href="{{.DemoURL}}">Demo</a>{{end}}
+                        </div>
+                    </div>
+                </div>
+                {{end}}
+            </div>
+        </div>
+    </div>
+    {{end}}
+
+    <svg class="wave" viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <path d="M0,60 C360,0 1080,0 1440,60 L1440,0 L0,0 Z" fill="#f0f7ff"/>
+    </svg>
+
+    {{if .Posts}}
+    <div class="posts-bg">
+        <div class="posts-inner">
+            <div class="section-header">
+                <h2>Latest posts</h2>
+                <a href="/blog">All posts →</a>
+            </div>
+            <ul class="posts-list">
+                {{range .Posts}}
+                <li>
+                    <span class="post-date">{{.Date}}</span>
+                    <a class="post-link" href="/blog/{{.Slug}}">{{.Title}}</a>
+                </li>
+                {{end}}
+            </ul>
+        </div>
+    </div>
+    {{end}}
+
+    {{template "footer" .}}
+</body>
+</html>{{end}}

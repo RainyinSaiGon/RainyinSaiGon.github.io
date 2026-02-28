@@ -1,0 +1,25 @@
+{{define "blog_post"}}<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{.Title}} — RainyinSaiGon</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    {{template "nav-inner" .}}
+
+    <div class="page-wrap">
+        <a href="/blog" class="back-link">← Blog</a>
+        <div class="post-header">
+            <h1>{{.Title}}</h1>
+            <div class="post-meta">{{.Date}}</div>
+        </div>
+        <div class="post-body">
+            {{.Content}}
+        </div>
+    </div>
+
+    {{template "footer" .}}
+</body>
+</html>{{end}}
