@@ -12,26 +12,132 @@
         <div class="flex items-center justify-between max-w-5xl mx-auto px-10 pb-20 pt-12 gap-10 flex-wrap">
             <div class="flex-1 min-w-[280px]">
                 <h1 class="text-5xl font-black leading-tight mb-5 text-navy" style="color:#0d2a4a">Hi, I'm RainyinSaiGon</h1>
-                <p class="text-lg text-gray-600 max-w-md mb-2">I build fast, elegant, and performant software.</p>
-                <p class="text-lg text-gray-600 max-w-md">This is where I share my projects and thoughts, mostly about code and technology.</p>
+                <p class="text-lg text-gray-600 max-w-md mb-2">I work at the intersection of software engineering, databases, performance, and Explainable AI.</p>
+                <p class="text-lg text-gray-600 max-w-md">This is where I share my projects and thoughts on building systems that are fast, reliable, and understandable.</p>
                 <div class="flex gap-4 mt-9 flex-wrap">
-                    <a class="inline-flex items-center gap-2 bg-blue text-white px-6 py-3 rounded-lg font-semibold text-sm hover:opacity-90" style="background:#1a6eb5" href="/blog">My blog ✍</a>
-                    <a class="inline-flex items-center gap-2 border-2 text-blue px-6 py-3 rounded-lg font-semibold text-sm hover:opacity-80" style="border-color:#1a6eb5;color:#1a6eb5" href="/works">My projects ⚙</a>
+                    <a class="inline-flex items-center gap-2 bg-blue text-white px-6 py-3 rounded-lg font-semibold text-sm hover:opacity-90" style="background:#1a6eb5" href="/blog">My blog </a>
+                    <a class="inline-flex items-center gap-2 border-2 text-blue px-6 py-3 rounded-lg font-semibold text-sm hover:opacity-80" style="border-color:#1a6eb5;color:#1a6eb5" href="/works">My projects </a>
                 </div>
             </div>
-            <div class="relative shrink-0 w-72 h-72">
-                <div class="absolute inset-[-20px] rounded-full opacity-70" style="background:radial-gradient(circle at 60% 50%,#a8cff0 0%,#b0d8f8 40%,transparent 70%)"></div>
-                <div class="tiles relative grid gap-2.5 w-56 mx-auto mt-10" style="grid-template-columns:repeat(3,1fr)">
-                    <div class="tile rounded-2xl aspect-square" style="background:#3b9eff"></div>
-                    <div class="tile rounded-2xl aspect-square" style="background:#3b9eff"></div>
-                    <div class="tile rounded-2xl aspect-square" style="background:#3b9eff"></div>
-                    <div class="tile rounded-2xl aspect-square" style="background:#3b9eff"></div>
-                    <div class="tile rounded-2xl aspect-square" style="background:#3b9eff"></div>
-                    <div class="tile rounded-2xl aspect-square" style="background:#3b9eff"></div>
-                    <div class="tile rounded-2xl aspect-square" style="background:#3b9eff"></div>
-                    <div class="tile rounded-2xl aspect-square" style="background:#3b9eff"></div>
+            <!-- Terminal animation -->
+            <div class="shrink-0 w-full max-w-sm rounded-xl overflow-hidden shadow-2xl" style="background:#0f172a;font-family:'Cascadia Code','JetBrains Mono','Fira Code',monospace">
+                <!-- Title bar -->
+                <div class="flex items-center gap-2 px-4 py-3" style="background:#1e293b">
+                    <span class="w-3 h-3 rounded-full inline-block" style="background:#ff5f57"></span>
+                    <span class="w-3 h-3 rounded-full inline-block" style="background:#febc2e"></span>
+                    <span class="w-3 h-3 rounded-full inline-block" style="background:#28c840"></span>
+                    <span class="ml-3 text-xs" style="color:#64748b">~/projects/xai-engine</span>
+                </div>
+                <!-- Terminal body -->
+                <div class="px-5 py-4 text-sm leading-relaxed" style="color:#e2e8f0;min-height:220px">
+                    <div id="term-output"></div>
+                    <span id="term-cursor" style="display:inline-block;width:8px;height:1.1em;background:#3b9eff;vertical-align:text-bottom;animation:blink 1s step-start infinite"></span>
                 </div>
             </div>
+            <style>
+                @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+                .term-line { display: block; }
+                .term-prompt { color: #3b9eff; }
+                .term-cmd   { color: #e2e8f0; }
+                .term-out   { color: #94a3b8; }
+                .term-green { color: #4ade80; }
+                .term-yellow{ color: #facc15; }
+                .term-red   { color: #f87171; }
+            </style>
+            <script>
+            (function() {
+                const lines = [
+                    { cls: 'term-prompt', text: '$ ', suffix: { cls: 'term-cmd', text: 'python explain.py --model xgb' } },
+                    { cls: 'term-out',    text: 'Loading model weights... done' },
+                    { cls: 'term-out',    text: 'Running SHAP analysis on 1024 samples' },
+                    { cls: 'term-green',  text: '✓ Feature importance computed (42ms)' },
+                    { cls: 'term-out',    text: '' },
+                    { cls: 'term-prompt', text: '$ ', suffix: { cls: 'term-cmd', text: 'go run bench/db_query.go' } },
+                    { cls: 'term-out',    text: 'Connecting to PostgreSQL... ok' },
+                    { cls: 'term-yellow', text: '⚡ Query optimised  2.3ms  (was 180ms)' },
+                    { cls: 'term-green',  text: '✓ Index scan   rows=50k  cost=0.42' },
+                    { cls: 'term-out',    text: '' },
+                    { cls: 'term-prompt', text: '$ ', suffix: { cls: 'term-cmd', text: './server --port 8080' } },
+                    { cls: 'term-green',  text: '✓ Listening on :8080' },
+                    { cls: 'term-out',    text: 'GET /api/predict   200  1.1ms' },
+                    { cls: 'term-out',    text: 'GET /api/explain   200  3.4ms' },
+                ];
+
+                const out = document.getElementById('term-output');
+                const cursor = document.getElementById('term-cursor');
+                let li = 0, ci = 0;
+
+                function makeSpan(cls, text) {
+                    const s = document.createElement('span');
+                    s.className = cls;
+                    s.textContent = text;
+                    return s;
+                }
+
+                function typeLine() {
+                    if (li >= lines.length) {
+                        // pause then restart
+                        setTimeout(() => { out.innerHTML = ''; li = 0; ci = 0; typeChar(); }, 2800);
+                        return;
+                    }
+                    const line = lines[li];
+                    if (ci === 0) {
+                        // start a new <span class="term-line">
+                        const row = document.createElement('span');
+                        row.className = 'term-line';
+                        out.appendChild(row);
+                    }
+                    const row = out.lastElementChild;
+
+                    // If it's an empty line just move on
+                    if (line.text === '' && !line.suffix) {
+                        row.appendChild(document.createTextNode('\n'));
+                        li++; ci = 0;
+                        setTimeout(typeLine, 80);
+                        return;
+                    }
+                    typeChar();
+                }
+
+                function typeChar() {
+                    if (li >= lines.length) { typeLine(); return; }
+                    const line = lines[li];
+                    const row = out.lastElementChild;
+
+                    // Full text = prefix text + optional suffix text
+                    const full = line.text + (line.suffix ? line.suffix.text : '');
+
+                    if (ci < full.length) {
+                        // Render prefix and suffix with correct colours
+                        row.innerHTML = '';
+                        const prefixSpan = document.createElement('span');
+                        prefixSpan.className = line.cls;
+                        prefixSpan.textContent = full.slice(0, Math.min(ci + 1, line.text.length));
+                        row.appendChild(prefixSpan);
+
+                        if (line.suffix && ci >= line.text.length) {
+                            const sufSpan = document.createElement('span');
+                            sufSpan.className = line.suffix.cls;
+                            sufSpan.textContent = full.slice(line.text.length, ci + 1);
+                            row.appendChild(sufSpan);
+                        }
+                        ci++;
+                        setTimeout(typeChar, line.cls === 'term-out' || line.cls === 'term-green' || line.cls === 'term-yellow' ? 18 : 45);
+                    } else {
+                        // Line done — append newline, move to next
+                        row.appendChild(document.createTextNode('\n'));
+                        li++; ci = 0;
+                        const delay = (line.text === '' ) ? 60
+                                    : (li === 5 || li === 10) ? 500   // pause before new "command"
+                                    : 120;
+                        setTimeout(typeLine, delay);
+                    }
+                }
+
+                // Start after a short delay
+                setTimeout(typeLine, 600);
+            })();
+            </script>
         </div>
     </div>
 
