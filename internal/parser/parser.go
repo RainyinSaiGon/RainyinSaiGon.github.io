@@ -104,9 +104,11 @@ func parsePost(slug, raw string) model.Post {
 		case "title":
 			post.Title = val
 		case "date":
-			post.Date = val
 			if t, err := time.Parse("2006-01-02", val); err == nil {
 				post.DateParsed = t
+				post.Date = t.Format("Jan 2, 2006")
+			} else {
+				post.Date = val
 			}
 		case "description":
 			post.Description = val
