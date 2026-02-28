@@ -158,7 +158,6 @@
     padding: 0.28rem 0.75rem;
     border-radius: 999px;
 }
-.dark .skill-badge { filter: brightness(0.4) saturate(1.6) contrast(1.2); }
 
 /* ── Timeline ────────────────────────────────────────────────── */
 .timeline { position: relative; padding-left: 1.5rem; }

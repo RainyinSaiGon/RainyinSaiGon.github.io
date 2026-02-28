@@ -89,7 +89,8 @@ func parsePost(slug, raw string) model.Post {
 	bodyStart := len(lines)
 
 	for i, line := range lines {
-		if line == "---" {
+		trimmedLine := strings.TrimSpace(line)
+		if trimmedLine == "---" {
 			bodyStart = i + 1
 			break
 		}
