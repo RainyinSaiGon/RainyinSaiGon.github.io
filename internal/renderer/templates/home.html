@@ -1,62 +1,63 @@
 {{define "home"}}<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {{template "head" .}}
     <title>RainyinSaiGon</title>
-    <link rel="stylesheet" href="/style.css">
 </head>
-<body>
-    <div class="hero-bg">
+<body class="font-sans text-gray-900 bg-white">
+
+    <!-- HERO -->
+    <div style="background:linear-gradient(135deg,#ddeeff 0%,#c8e4ff 60%,#b8d4f0 100%)">
         {{template "nav-home" .}}
-        <div class="hero-body">
-            <div class="hero-left">
-                <h1>Hi, I'm RainyinSaiGon</h1>
-                <p>I build fast, elegant, and performant software.</p>
-                <p>This is where I share my projects and thoughts, mostly about code and technology.</p>
-                <div class="hero-cta">
-                    <a class="btn-primary" href="/blog">My blog </a>
-                    <a class="btn-outline" href="/works">My projects</a>
+        <div class="flex items-center justify-between max-w-5xl mx-auto px-10 pb-20 pt-12 gap-10 flex-wrap">
+            <div class="flex-1 min-w-[280px]">
+                <h1 class="text-5xl font-black leading-tight mb-5 text-navy" style="color:#0d2a4a">Hi, I'm RainyinSaiGon</h1>
+                <p class="text-lg text-gray-600 max-w-md mb-2">I build fast, elegant, and performant software.</p>
+                <p class="text-lg text-gray-600 max-w-md">This is where I share my projects and thoughts, mostly about code and technology.</p>
+                <div class="flex gap-4 mt-9 flex-wrap">
+                    <a class="inline-flex items-center gap-2 bg-blue text-white px-6 py-3 rounded-lg font-semibold text-sm hover:opacity-90" style="background:#1a6eb5" href="/blog">My blog ✍</a>
+                    <a class="inline-flex items-center gap-2 border-2 text-blue px-6 py-3 rounded-lg font-semibold text-sm hover:opacity-80" style="border-color:#1a6eb5;color:#1a6eb5" href="/works">My projects ⚙</a>
                 </div>
             </div>
-            <div class="hero-right">
-                <div class="blob"></div>
-                <div class="tiles">
-                    <div class="tile"></div>
-                    <div class="tile"></div>
-                    <div class="tile"></div>
-                    <div class="tile"></div>
-                    <div class="tile"></div>
-                    <div class="tile"></div>
-                    <div class="tile"></div>
-                    <div class="tile"></div>
+            <div class="relative shrink-0 w-72 h-72">
+                <div class="absolute inset-[-20px] rounded-full opacity-70" style="background:radial-gradient(circle at 60% 50%,#a8cff0 0%,#b0d8f8 40%,transparent 70%)"></div>
+                <div class="tiles relative grid gap-2.5 w-56 mx-auto mt-10" style="grid-template-columns:repeat(3,1fr)">
+                    <div class="tile rounded-2xl aspect-square" style="background:#3b9eff"></div>
+                    <div class="tile rounded-2xl aspect-square" style="background:#3b9eff"></div>
+                    <div class="tile rounded-2xl aspect-square" style="background:#3b9eff"></div>
+                    <div class="tile rounded-2xl aspect-square" style="background:#3b9eff"></div>
+                    <div class="tile rounded-2xl aspect-square" style="background:#3b9eff"></div>
+                    <div class="tile rounded-2xl aspect-square" style="background:#3b9eff"></div>
+                    <div class="tile rounded-2xl aspect-square" style="background:#3b9eff"></div>
+                    <div class="tile rounded-2xl aspect-square" style="background:#3b9eff"></div>
                 </div>
             </div>
         </div>
     </div>
 
-    <svg class="wave" viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <svg class="block w-full" style="line-height:0" viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
         <path d="M0,0 C360,60 1080,60 1440,0 L1440,60 L0,60 Z" fill="#f0f7ff"/>
     </svg>
 
+    <!-- WORKS -->
     {{if .Projects}}
-    <div class="works-bg">
-        <div class="works-inner">
-            <div class="section-header">
-                <h2>Recent works</h2>
-                <a href="/works">All works →</a>
+    <div style="background:#f0f7ff" class="py-16">
+        <div class="max-w-5xl mx-auto px-10">
+            <div class="flex items-baseline justify-between mb-8">
+                <h2 class="text-2xl font-extrabold" style="color:#0d2a4a">Recent works</h2>
+                <a class="text-sm font-medium" style="color:#1a6eb5" href="/works">All works →</a>
             </div>
-            <div class="works-grid">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {{range .Projects}}
-                <div class="work-card">
-                    {{if .Image}}<img class="work-card-img" src="{{.Image}}" alt="{{.Title}}">
-                    {{else}}<div class="work-card-img"></div>{{end}}
-                    <div class="work-card-body">
-                        <div class="work-card-title">{{.Title}}</div>
-                        <div class="work-card-desc">{{.Description}}</div>
-                        <div class="work-card-links">
-                            {{if .CodeURL}}<a class="work-card-btn" href="{{.CodeURL}}">Code</a>{{end}}
-                            {{if .DemoURL}}<a class="work-card-btn" href="{{.DemoURL}}">Demo</a>{{end}}
+                <div class="flex flex-col bg-white rounded-xl overflow-hidden shadow-sm border border-gray-200">
+                    {{if .Image}}<img class="w-full h-44 object-cover" src="{{.Image}}" alt="{{.Title}}">
+                    {{else}}<div class="w-full h-44" style="background:#ddeeff"></div>{{end}}
+                    <div class="flex flex-col flex-1 p-5">
+                        <div class="font-bold text-base mb-2">{{.Title}}</div>
+                        <div class="text-sm text-gray-500 leading-relaxed flex-1">{{.Description}}</div>
+                        <div class="flex gap-3 mt-4">
+                            {{if .CodeURL}}<a class="text-xs font-semibold px-3 py-1 rounded-md border" style="color:#1a6eb5;border-color:#1a6eb5" href="{{.CodeURL}}">Code</a>{{end}}
+                            {{if .DemoURL}}<a class="text-xs font-semibold px-3 py-1 rounded-md border" style="color:#1a6eb5;border-color:#1a6eb5" href="{{.DemoURL}}">Demo</a>{{end}}
                         </div>
                     </div>
                 </div>
@@ -66,22 +67,23 @@
     </div>
     {{end}}
 
-    <svg class="wave" viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <svg class="block w-full" style="line-height:0" viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
         <path d="M0,60 C360,0 1080,0 1440,60 L1440,0 L0,0 Z" fill="#f0f7ff"/>
     </svg>
 
+    <!-- POSTS -->
     {{if .Posts}}
-    <div class="posts-bg">
-        <div class="posts-inner">
-            <div class="section-header">
-                <h2>Latest posts</h2>
-                <a href="/blog">All posts →</a>
+    <div class="py-16 bg-white">
+        <div class="max-w-5xl mx-auto px-10">
+            <div class="flex items-baseline justify-between mb-8">
+                <h2 class="text-2xl font-extrabold" style="color:#0d2a4a">Latest posts</h2>
+                <a class="text-sm font-medium" style="color:#1a6eb5" href="/blog">All posts →</a>
             </div>
-            <ul class="posts-list">
+            <ul class="divide-y divide-gray-200">
                 {{range .Posts}}
-                <li>
-                    <span class="post-date">{{.Date}}</span>
-                    <a class="post-link" href="/blog/{{.Slug}}">{{.Title}}</a>
+                <li class="flex items-baseline gap-6 py-4">
+                    <span class="text-sm text-gray-400 whitespace-nowrap w-28 shrink-0">{{.Date}}</span>
+                    <a class="font-semibold text-gray-900 hover:text-blue" style="--tw-text-opacity:1" href="/blog/{{.Slug}}">{{.Title}}</a>
                 </li>
                 {{end}}
             </ul>

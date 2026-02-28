@@ -1,32 +1,34 @@
 {{define "about"}}<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {{template "head" .}}
     <title>About — RainyinSaiGon</title>
-    <link rel="stylesheet" href="/style.css">
 </head>
-<body>
+<body class="font-sans text-gray-900 bg-white">
     {{template "nav-inner" .}}
 
-    <div class="page-wrap">
-        <h1>About</h1>
-        <div class="about-content">
-            <p>Hi! I'm RainyinSaiGon — a developer interested in building fast, efficient, and elegant software.</p>
+    <main class="max-w-3xl mx-auto px-6 py-14">
+        <h1 class="text-4xl font-extrabold text-navy mb-8">About me</h1>
 
-            <h2>What I work on</h2>
-            <p>I enjoy working with Go, web technologies, and systems programming. I like understanding how things work at a fundamental level and building tools that solve real problems.</p>
+        <p class="text-gray-700 leading-relaxed mb-5">I'm RainyinSaiGon, a student and software developer based in Ho Chi Minh City, Vietnam. At school, I research machine learning algorithms and applications. During my free time, I usually work on side projects or learn new techniques. My goal is to create helpful tools and applications with intuitive and presentable interfaces.</p>
 
-            <h2>Projects</h2>
-            <p>Take a look at my <a href="/works">works page</a> to see what I've been building.</p>
+        <p class="text-gray-700 leading-relaxed mb-10">I'm glad you've come across my website. This is where I organize and share my thoughts and experiences. I'll try to write about my notes or opinions about certain topics I recently encountered, especially those that I found interesting or had the most trouble articulating.</p>
 
-            <h2>Writing</h2>
-            <p>I occasionally write about things I find interesting on my <a href="/blog">blog</a>.</p>
-
-            <h2>Contact</h2>
-            <p>Find me on <a href="https://github.com/RainyinSaiGon">GitHub</a>.</p>
+        <!-- Looking for something? -->
+        <div class="bg-blue-50 border border-blue-100 rounded-2xl p-8 mb-10" style="background:#ddeeff">
+            <h2 class="text-2xl font-bold text-navy mb-4">Looking for something?</h2>
+            <ul class="space-y-2 text-gray-700">
+                <li>Read my <a class="text-blue font-medium hover:underline" href="/blog">blog posts</a> here.</li>
+                <li>View my <a class="text-blue font-medium hover:underline" href="/works">projects</a> here or on my <a class="text-blue font-medium hover:underline" href="https://github.com/RainyinSaiGon">GitHub</a>.</li>
+                <li>My setup and programs are available in my <a class="text-blue font-medium hover:underline" href="https://github.com/RainyinSaiGon">dotfiles</a>.</li>
+            </ul>
         </div>
-    </div>
+
+        <!-- Tech stack -->
+        <h2 class="text-2xl font-bold text-navy mb-4">Tech stack</h2>
+        <p class="text-gray-700 leading-relaxed mb-5">Go is my primary language for building this site and backend tooling. I also work with JavaScript, Python, and C. I enjoy understanding how things work at a low level and reaching for the right tool for each job.</p>
+        <p class="text-gray-700 leading-relaxed">For personal projects, I prefer building from scratch for educational purposes. For front-ends I enjoy working with modern frameworks, and for back-ends I favour simplicity and performance. This site is built with a custom static-site generator written in Go because of its simplicity, speed, and full control over the output.</p>
+    </main>
 
     {{template "footer" .}}
 </body>

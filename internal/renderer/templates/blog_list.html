@@ -1,32 +1,30 @@
 {{define "blog_list"}}<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {{template "head" .}}
     <title>Blog — RainyinSaiGon</title>
-    <link rel="stylesheet" href="/style.css">
 </head>
-<body>
+<body class="font-sans text-gray-900 bg-white">
     {{template "nav-inner" .}}
 
-    <div class="page-wrap">
-        <h1>Blog</h1>
+    <main class="max-w-3xl mx-auto px-6 py-14">
+        <h1 class="text-4xl font-extrabold text-navy mb-10">Blog</h1>
         {{if .Posts}}
-        <ul class="posts-list">
+        <ul class="divide-y divide-gray-200">
             {{range .Posts}}
-            <li>
-                <span class="post-date">{{.Date}}</span>
+            <li class="flex items-baseline gap-6 py-4">
+                <span class="text-sm text-gray-400 whitespace-nowrap w-28 shrink-0">{{.Date}}</span>
                 <div>
-                    <a class="post-link" href="/blog/{{.Slug}}">{{.Title}}</a>
-                    {{if .Description}}<span class="post-desc">{{.Description}}</span>{{end}}
+                    <a class="font-semibold text-gray-900 hover:text-blue" href="/blog/{{.Slug}}">{{.Title}}</a>
+                    {{if .Description}}<span class="block text-sm text-gray-500 mt-0.5">{{.Description}}</span>{{end}}
                 </div>
             </li>
             {{end}}
         </ul>
         {{else}}
-        <p style="color:var(--muted)">No blog posts yet. Check back soon!</p>
+        <p class="text-gray-400">No blog posts yet. Check back soon!</p>
         {{end}}
-    </div>
+    </main>
 
     {{template "footer" .}}
 </body>

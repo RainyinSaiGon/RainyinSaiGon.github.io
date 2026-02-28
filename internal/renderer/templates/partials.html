@@ -1,27 +1,50 @@
+{{define "head"}}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: { sans: ['Inter', 'ui-sans-serif', 'system-ui'] },
+        colors: {
+          blue: { DEFAULT: '#1a6eb5', light: '#3b9eff', bg: '#ddeeff' },
+          navy: '#0d2a4a'
+        }
+      }
+    }
+  }
+</script>
+{{end}}
+
 {{define "nav-home"}}
-<nav class="site-nav">
-    <a class="logo" href="/">RainyinSaiGon</a>
-    <div class="nav-links">
-        <a href="/works">Works</a>
-        <a href="/blog">Blog</a>
-        <a href="/about">About</a>
+<nav class="flex items-center justify-between px-10 py-5 max-w-5xl mx-auto">
+    <a class="font-bold text-lg text-navy hover:text-blue" href="/">RainyinSaiGon</a>
+    <div class="flex gap-8">
+        <a class="font-medium text-gray-800 hover:text-blue" href="/works">Works</a>
+        <a class="font-medium text-gray-800 hover:text-blue" href="/blog">Blog</a>
+        <a class="font-medium text-gray-800 hover:text-blue" href="/about">About</a>
     </div>
 </nav>
 {{end}}
 
 {{define "nav-inner"}}
-<nav class="site-nav inner-nav">
-    <a class="logo" href="/">RainyinSaiGon</a>
-    <div class="nav-links">
-        <a href="/works">Works</a>
-        <a href="/blog">Blog</a>
-        <a href="/about">About</a>
+<nav class="flex items-center justify-between px-10 py-5 max-w-5xl mx-auto border-b border-gray-200">
+    <a class="font-bold text-lg text-navy hover:text-blue" href="/">RainyinSaiGon</a>
+    <div class="flex gap-8">
+        <a class="font-medium text-gray-800 hover:text-blue" href="/works">Works</a>
+        <a class="font-medium text-gray-800 hover:text-blue" href="/blog">Blog</a>
+        <a class="font-medium text-gray-800 hover:text-blue" href="/about">About</a>
     </div>
 </nav>
 {{end}}
 
 {{define "footer"}}
-<footer class="site-footer">
-    <p>© 2026 RainyinSaiGon. Content licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.</p>
+<footer class="max-w-5xl mx-auto px-10 py-8 mt-20 border-t border-gray-200 text-gray-500 text-sm">
+    <p>© 2026 RainyinSaiGon. Content on this site is licensed under <a class="underline hover:text-blue" href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.</p>
 </footer>
 {{end}}
