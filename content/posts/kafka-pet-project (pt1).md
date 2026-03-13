@@ -4,23 +4,23 @@ description: How I built a simple Kafka-based event processing pipeline in Go, w
 tags: Go, Kafka
 ---
 
-<h2>Introduction</h2>
+## Introduction
 
-<p>Tomorrow, i will take an online course from <a href="https://engineerprogurus.com/">EngineerPro</a> about building a Kafka pet project in Go. This will be the first part of a series where I document the process of building a simple Kafka-based event processing pipeline, including a producer, consumer, and schema registry integration. Stay tuned for updates!</p>
+Tomorrow, i will take an online course from [EngineerPro](https://engineerprogurus.com/) about building a Kafka pet project in Go. This will be the first part of a series where I document the process of building a simple Kafka-based event processing pipeline, including a producer, consumer, and schema registry integration. Stay tuned for updates!
 
-<h2>Getting Started</h2>
+## Getting Started
 
-<p>Add content here</p>
+Add content here
 
-<h2>Implementation</h2>
+## Implementation
 
-<p>Add content here</p>
+Add content here
 
-<h2>Results</h2>
+## Results
 
-<p>Add content here</p>
+Add content here
 
-<h2>Conclusion</h2>
+## Conclusion
 
-<p>Add content here</p>
+Add content here
 

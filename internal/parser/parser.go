@@ -1,6 +1,7 @@
 package parser
 
 import (
+	"bytes"
 	"html/template"
 	"math"
 	"os"
@@ -10,9 +11,21 @@ import (
 	"time"
 
 	"portfolio/internal/model"
+
+	"github.com/yuin/goldmark"
 )
 
 var htmlTagRe = regexp.MustCompile(`<[^>]+>`)
+
+// markdownToHTML converts markdown content to HTML using goldmark.
+func markdownToHTML(markdown string) string {
+	md := goldmark.New()
+	var buf bytes.Buffer
+	if err := md.Convert([]byte(markdown), &buf); err != nil {
+		return markdown // fallback to original if conversion fails
+	}
+	return buf.String()
+}
 
 // readTime estimates minutes to read based on a ~200 wpm average.
 func readTime(htmlContent string) int {
@@ -123,8 +136,9 @@ func parsePost(slug, raw string) model.Post {
 	}
 
 	body := strings.Join(lines[bodyStart:], "\n")
-	post.Content = template.HTML(body)
-	post.ReadTime = readTime(body)
+	htmlContent := markdownToHTML(body)
+	post.Content = template.HTML(htmlContent)
+	post.ReadTime = readTime(htmlContent)
 	return post
 }
 
