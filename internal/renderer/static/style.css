@@ -1,4 +1,5 @@
 ﻿/* ── Smooth theme transition ─────────────────────────────────── */
+html { scroll-behavior: smooth; }
 *, *::before, *::after {
     transition: background-color 0.2s ease, color 0.15s ease, border-color 0.2s ease;
 }
@@ -61,21 +62,27 @@
 }
 
 /* ── Blog post body typography ───────────────────────────────── */
-.post-body h2 { font-size: 1.35rem; font-weight: 700; margin: 2rem 0 0.75rem; color: #0d2a4a; }
+.post-body { font-size: 1.05rem; }
+.post-body h2 { font-size: 1.35rem; font-weight: 700; margin: 2.5rem 0 0.75rem; padding-top: 1.75rem; border-top: 1px solid #e5e7eb; color: #0d2a4a; }
+.post-body h2:first-child { border-top: none; padding-top: 0; margin-top: 0; }
 .post-body h3 { font-size: 1.1rem; font-weight: 700; margin: 1.5rem 0 0.6rem; color: #0d2a4a; }
 .post-body p  { margin-bottom: 1rem; color: #374151; line-height: 1.8; }
-.post-body ul, .post-body ol { margin-left: 1.5rem; margin-bottom: 1rem; color: #374151; }
+.post-body ul { margin-left: 1.5rem; margin-bottom: 1rem; color: #374151; list-style-type: disc; }
+.post-body ol { margin-left: 1.5rem; margin-bottom: 1rem; color: #374151; list-style-type: decimal; }
 .post-body li { margin-bottom: 0.4rem; }
+.post-body blockquote { border-left: 4px solid #1a6eb5; background: #f0f7ff; padding: 0.75rem 1rem; border-radius: 0 6px 6px 0; margin: 1.25rem 0; color: #374151; }
 .post-body a  { color: #1a6eb5; text-decoration: underline; }
 .post-body code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-family: 'Cascadia Code', 'JetBrains Mono', monospace; font-size: 0.88em; }
-.post-body pre { border-radius: 10px; overflow-x: auto; margin-bottom: 1.25rem; padding: 0; }
-.post-body pre code { border-radius: 10px; padding: 1.25rem !important; font-size: 0.88em; }
+.post-body pre { background: #282c34; border-radius: 10px; overflow-x: auto; margin-bottom: 1.25rem; padding: 0; }
+.post-body pre code { background: none; padding: 1.25rem !important; border-radius: 10px; font-size: 0.88em; }
 .post-body pre code.hljs { border-radius: 10px; }
 
 /* post-body dark mode */
 .dark .post-body h2, .dark .post-body h3 { color: #f1f5f9; }
+.dark .post-body h2 { border-top-color: #1f2937; }
 .dark .post-body p  { color: #d1d5db; }
 .dark .post-body ul, .dark .post-body ol { color: #d1d5db; }
+.dark .post-body blockquote { background: #172033; border-left-color: #7eb8f7; color: #d1d5db; }
 .dark .post-body code { background: #1e293b; color: #e2e8f0; }
 .dark .post-body a  { color: #7eb8f7; }
 
