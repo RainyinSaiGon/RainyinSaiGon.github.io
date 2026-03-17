@@ -13,8 +13,20 @@ type Post struct {
 	DateParsed  time.Time
 	Description string
 	Tags        []string      // topic tags e.g. ["Go", "AWS"]
+	SeriesTag   string        // tag identifying the series
+	SeriesTitle string        // title of this part in the series
+	Series      *Series       // back-reference to the full series object
+	SeriesPart  int           // 1-based index in the series
+	SeriesNext  *Post         // next part in the series
+	SeriesPrev  *Post         // previous part in the series
 	ReadTime    int           // estimated minutes to read
 	Content     template.HTML // raw HTML, not escaped in templates
+}
+
+// Series represents a collection of related blog posts.
+type Series struct {
+	Tag   string
+	Posts []*Post
 }
 
 // Project represents a portfolio project parsed from a markdown file.

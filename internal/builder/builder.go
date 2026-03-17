@@ -6,6 +6,7 @@ import (
 	"path/filepath"
 	"sort"
 
+	"portfolio/internal/model"
 	"portfolio/internal/parser"
 	"portfolio/internal/renderer"
 )
@@ -32,6 +33,35 @@ func Build(cfg Config) error {
 	sort.Slice(posts, func(i, j int) bool {
 		return posts[i].DateParsed.After(posts[j].DateParsed)
 	})
+
+	// Group posts into series
+	seriesMap := make(map[string]*model.Series)
+	for i := range posts {
+		if posts[i].SeriesTag != "" {
+			tag := posts[i].SeriesTag
+			if seriesMap[tag] == nil {
+				seriesMap[tag] = &model.Series{Tag: tag}
+			}
+			seriesMap[tag].Posts = append(seriesMap[tag].Posts, &posts[i])
+			posts[i].Series = seriesMap[tag]
+		}
+	}
+
+	// Sort series posts oldest-first (chronological order) and link them
+	for _, s := range seriesMap {
+		sort.Slice(s.Posts, func(i, j int) bool {
+			return s.Posts[i].DateParsed.Before(s.Posts[j].DateParsed)
+		})
+		for i, p := range s.Posts {
+			p.SeriesPart = i + 1
+			if i > 0 {
+				p.SeriesPrev = s.Posts[i-1]
+			}
+			if i < len(s.Posts)-1 {
+				p.SeriesNext = s.Posts[i+1]
+			}
+		}
+	}
 
 	// Prepare output directory
 	if err := os.MkdirAll(cfg.OutputDir, 0755); err != nil {

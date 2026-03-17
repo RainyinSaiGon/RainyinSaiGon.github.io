@@ -17,17 +17,71 @@
     <div id="reading-progress" style="position:fixed;top:0;left:0;height:3px;background:#1a6eb5;width:0;z-index:9999;transition:width 0.1s linear;border-radius:0 2px 2px 0;"></div>
     {{template "nav-inner" .}}
 
-    <main class="max-w-5xl mx-auto px-10 py-14">
+    <main class="max-w-7xl mx-auto px-10 py-14">
         <div class="xl:flex xl:gap-14 xl:items-start">
-            <div class="flex-1 min-w-0 max-w-3xl">
+            
+            <!-- Left Sidebar (Series Navigation & Back Button on Desktop) -->
+            <aside class="hidden xl:block w-64 shrink-0 sticky top-10 self-start border-r border-gray-200 dark:border-gray-800 pr-8">
+                <a href="/blog" class="inline-flex items-center gap-1 text-sm mb-6 text-gray-400 dark:text-gray-500 hover:text-blue transition-colors">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" class="opacity-70" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+                    Back to Blog
+                </a>
+
+                {{if .Post.Series}}
+                <div class="mb-8">
+                    <p class="text-xs uppercase font-semibold tracking-wider text-gray-400 dark:text-gray-500 mb-4">Series: {{.Post.SeriesTag}}</p>
+                    <nav class="relative border-l border-gray-200 dark:border-gray-800 ml-2 space-y-4">
+                        {{range $i, $p := .Post.Series.Posts}}
+                        <div class="relative pl-5">
+                            {{if eq $p.Slug $.Post.Slug}}
+                                <!-- Active Part -->
+                                <div class="absolute -left-[4.5px] top-[5px] w-[10px] h-[10px] rounded-full bg-blue dark:bg-blue-light ring-[3px] ring-white dark:ring-gray-950"></div>
+                                <span class="block text-sm font-semibold" style="color:#1a6eb5">{{if $p.SeriesTitle}}{{$p.SeriesTitle}}{{else}}{{$p.Title}}{{end}}</span>
+                            {{else}}
+                                <!-- Inactive Part -->
+                                <div class="absolute -left-[2.5px] top-[7px] w-[6px] h-[6px] rounded-full bg-gray-300 dark:bg-gray-700"></div>
+                                <a href="/blog/{{$p.Slug}}" class="block text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 transition-colors">{{if $p.SeriesTitle}}{{$p.SeriesTitle}}{{else}}{{$p.Title}}{{end}}</a>
+                            {{end}}
+                        </div>
+                        {{end}}
+                    </nav>
+                </div>
+                {{end}}
+            </aside>
+
+            <!-- Mobile Back Button (Visible only below xl) -->
+            <div class="xl:hidden">
                 <a href="/blog" class="inline-flex items-center gap-1 text-sm mb-10 text-gray-400 dark:text-gray-500 hover:text-blue transition-colors">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
                     Blog
                 </a>
+            </div>
+
+            <div class="flex-1 min-w-0 max-w-3xl">
                 <h1 class="text-4xl font-extrabold leading-tight mb-3 text-gray-900 dark:text-white">{{.Title}}</h1>
+                
+                <!-- Mobile Series Notice -->
+                {{if .Post.Series}}
+                <div class="xl:hidden mt-4 mb-6 p-4 rounded bg-gray-50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-800 text-sm">
+                    <span class="font-semibold text-gray-900 dark:text-white">Part of the <span style="color:#1a6eb5">{{.Post.SeriesTag}}</span> series.</span>
+                    <ul class="mt-2 space-y-1">
+                        {{range $i, $p := .Post.Series.Posts}}
+                        <li class="flex gap-2">
+                            <span class="text-gray-400">Part {{if eq $p.Slug $.Post.Slug}}→{{else}}-{{end}}</span>
+                            {{if eq $p.Slug $.Post.Slug}}
+                                <span class="font-medium" style="color:#1a6eb5">{{if $p.SeriesTitle}}{{$p.SeriesTitle}}{{else}}{{$p.Title}}{{end}}</span>
+                            {{else}}
+                                <a href="/blog/{{$p.Slug}}" class="text-gray-600 dark:text-gray-400 hover:underline">{{if $p.SeriesTitle}}{{$p.SeriesTitle}}{{else}}{{$p.Title}}{{end}}</a>
+                            {{end}}
+                        </li>
+                        {{end}}
+                    </ul>
+                </div>
+                {{end}}
+
                 {{if .Description}}<p class="text-base italic text-gray-500 dark:text-gray-400 mb-4 leading-relaxed">{{.Description}}</p>{{end}}
                 <p class="text-sm mb-4 text-gray-400">
-                    {{.Date}}
+                    Updated at: {{.Date}}
                     <span class="mx-1.5">·</span>
                     {{.ReadTime}} {{if eq .ReadTime 1}}minute{{else}}minutes{{end}} read
                     <span class="mx-1.5">·</span>
@@ -44,6 +98,23 @@
                 <div class="post-body">
                     {{.Content}}
                 </div>
+
+                {{if .Post.SeriesNext}}
+                <!-- Next Series Part Callout -->
+                <div class="mt-14 p-8 rounded-2xl bg-gray-50 dark:bg-gray-800/50 border border-gray-100 dark:border-gray-800/80 hover:border-blue/30 dark:hover:border-blue/30 transition-colors group">
+                    <p class="text-[11px] font-bold tracking-widest uppercase text-gray-400 dark:text-gray-500 mb-3 block">Next in this series</p>
+                    <a href="/blog/{{.Post.SeriesNext.Slug}}" class="block">
+                        <div class="flex items-center justify-between gap-4">
+                            <div>
+                                <h3 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white group-hover:text-blue dark:group-hover:text-blue-light transition-colors">Part {{.Post.SeriesNext.SeriesPart}}: {{if .Post.SeriesNext.SeriesTitle}}{{.Post.SeriesNext.SeriesTitle}}{{else}}{{.Post.SeriesNext.Title}}{{end}}</h3>
+                            </div>
+                            <div class="w-10 h-10 shrink-0 rounded-full bg-blue/10 dark:bg-blue/20 flex items-center justify-center text-blue transition-transform group-hover:translate-x-1">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {{end}}
 
                 <!-- Prev / Next navigation -->
                 <nav class="mt-16 pt-8 border-t border-gray-200 dark:border-gray-800 grid grid-cols-2 gap-6 text-sm">
@@ -82,6 +153,14 @@
     </script>
     <script>
     (function() {
+        // ── Mermaid: convert <pre><code class="language-mermaid"> to <div class="mermaid"> ──
+        document.querySelectorAll('.post-body pre code.language-mermaid').forEach(function(code) {
+            var div = document.createElement('div');
+            div.className = 'mermaid';
+            div.textContent = code.textContent;
+            code.parentElement.replaceWith(div);
+        });
+
         // ── Copy code buttons ──────────────────────────────────────
         document.querySelectorAll('.post-body pre').forEach(function(pre) {
             pre.style.position = 'relative';
@@ -115,7 +194,7 @@
             if (!h.id) h.id = 'h-' + i;
             var a = document.createElement('a');
             a.href = '#' + h.id;
-            a.textContent = h.textContent;
+            a.textContent = h.textContent.replace(/^\d+\.\s+/, '');
             a.className = 'toc-link' + (h.tagName === 'H3' ? ' toc-h3' : '');
             nav.appendChild(a);
         });
@@ -131,7 +210,13 @@
 
     {{template "footer" .}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/highlightjs-zig/dist/zig.min.js"></script>
     <script>hljs.highlightAll();</script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+        var isDark = document.documentElement.classList.contains('dark');
+        mermaid.initialize({ startOnLoad: true, theme: isDark ? 'dark' : 'neutral', flowchart: { useMaxWidth: true } });
+    </script>
     <script>
     fetch('https://rainyinsaigon.goatcounter.com/counter//blog/{{.Slug}}/.json')
         .then(function(r){ return r.ok ? r.json() : null; })

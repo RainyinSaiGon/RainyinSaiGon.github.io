@@ -1,17 +1,27 @@
 package main
 
 import (
-"log"
+	"flag"
+	"log"
 
-"portfolio/internal/builder"
+	"portfolio/internal/builder"
 )
 
 func main() {
-err := builder.Build(builder.Config{
-ContentDir: "content",
-OutputDir:  "docs",
-})
-if err != nil {
-log.Fatal(err)
-}
+	dev := flag.Bool("dev", false, "run dev server with live reload on :3000")
+	flag.Parse()
+
+	cfg := builder.Config{
+		ContentDir: "content",
+		OutputDir:  "docs",
+	}
+
+	if *dev {
+		runDevServer(cfg)
+		return
+	}
+
+	if err := builder.Build(cfg); err != nil {
+		log.Fatal(err)
+	}
 }

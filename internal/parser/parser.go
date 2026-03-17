@@ -132,6 +132,10 @@ func parsePost(slug, raw string) model.Post {
 					post.Tags = append(post.Tags, t)
 				}
 			}
+		case "series":
+			post.SeriesTag = val
+		case "series_title":
+			post.SeriesTitle = val
 		}
 	}
 
