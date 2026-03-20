@@ -119,15 +119,29 @@
                 <!-- Prev / Next navigation -->
                 <nav class="mt-16 pt-8 border-t border-gray-200 dark:border-gray-800 grid grid-cols-2 gap-6 text-sm">
                     <div>
-                        {{if .Next}}
-                        <p class="text-gray-400 mb-1 text-xs uppercase tracking-wide font-medium">← Previous post</p>
-                        <a class="font-semibold transition-opacity hover:opacity-70" style="color:#1a6eb5" href="/blog/{{.Next.Slug}}">{{.Next.Title}}</a>
+                        {{if .Post.Series}}
+                            {{if .Post.SeriesPrev}}
+                            <p class="text-gray-400 mb-1 text-xs uppercase tracking-wide font-medium">← Previous part</p>
+                            <a class="font-semibold transition-opacity hover:opacity-70" style="color:#1a6eb5" href="/blog/{{.Post.SeriesPrev.Slug}}">{{if .Post.SeriesPrev.SeriesTitle}}{{.Post.SeriesPrev.SeriesTitle}}{{else}}{{.Post.SeriesPrev.Title}}{{end}}</a>
+                            {{end}}
+                        {{else}}
+                            {{if .Next}}
+                            <p class="text-gray-400 mb-1 text-xs uppercase tracking-wide font-medium">← Previous post</p>
+                            <a class="font-semibold transition-opacity hover:opacity-70" style="color:#1a6eb5" href="/blog/{{.Next.Slug}}">{{.Next.Title}}</a>
+                            {{end}}
                         {{end}}
                     </div>
                     <div class="text-right">
-                        {{if .Prev}}
-                        <p class="text-gray-400 mb-1 text-xs uppercase tracking-wide font-medium">Next post →</p>
-                        <a class="font-semibold transition-opacity hover:opacity-70" style="color:#1a6eb5" href="/blog/{{.Prev.Slug}}">{{.Prev.Title}}</a>
+                        {{if .Post.Series}}
+                            {{if .Post.SeriesNext}}
+                            <p class="text-gray-400 mb-1 text-xs uppercase tracking-wide font-medium">Next part →</p>
+                            <a class="font-semibold transition-opacity hover:opacity-70" style="color:#1a6eb5" href="/blog/{{.Post.SeriesNext.Slug}}">{{if .Post.SeriesNext.SeriesTitle}}{{.Post.SeriesNext.SeriesTitle}}{{else}}{{.Post.SeriesNext.Title}}{{end}}</a>
+                            {{end}}
+                        {{else}}
+                            {{if .Prev}}
+                            <p class="text-gray-400 mb-1 text-xs uppercase tracking-wide font-medium">Next post →</p>
+                            <a class="font-semibold transition-opacity hover:opacity-70" style="color:#1a6eb5" href="/blog/{{.Prev.Slug}}">{{.Prev.Title}}</a>
+                            {{end}}
                         {{end}}
                     </div>
                 </nav>

@@ -14,7 +14,7 @@ I'm taking an online course from [EngineerPro](https://engineerprogurus.com/) ab
 
 First, we need to choose the programming language for our project. Several languages came to mind: Go, Rust, and Zig. Let's determine which is most suitable:
 
-### 1. Go
+#### 1. Go
 
 - Statically typed, compiled programming language.
 - Widely supported with big community.
@@ -22,7 +22,7 @@ First, we need to choose the programming language for our project. Several langu
 
 → Easy to learn
 
-### 2. Rust
+#### 2. Rust
 
 - Statically typed, compiled programming language (Like Go)
 - Not beginner-friendly, very hard to use (ownership + lifetime is weird)
@@ -30,7 +30,7 @@ First, we need to choose the programming language for our project. Several langu
 
 → Hard but interesting — performance is great.
 
-### 3. Zig
+#### 3. Zig
 
 - Statically typed, compiled programming language (Like Go and Rust).
 - No garbage collector, manual memory management like Rust
