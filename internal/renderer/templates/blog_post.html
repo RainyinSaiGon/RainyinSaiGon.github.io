@@ -7,7 +7,7 @@
     <meta property="og:title" content="{{.Title}} — RainyinSaiGon">
     <meta property="og:description" content="{{.Description}}">
     <meta property="og:type" content="article">
-    <meta property="og:url" content="https://rainyinsaigon.github.io/blog/{{.Slug}}/">
+    <meta property="og:url" content="https://rainyinsaigon.github.io{{.URLPath}}">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="{{.Title}}">
     <meta name="twitter:description" content="{{.Description}}">
@@ -40,7 +40,7 @@
                             {{else}}
                                 <!-- Inactive Part -->
                                 <div class="absolute -left-[2.5px] top-[7px] w-[6px] h-[6px] rounded-full bg-gray-300 dark:bg-gray-700"></div>
-                                <a href="/blog/{{$p.Slug}}" class="block text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 transition-colors">{{if $p.SeriesTitle}}{{$p.SeriesTitle}}{{else}}{{$p.Title}}{{end}}</a>
+                                <a href="{{$p.URLPath}}" class="block text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 transition-colors">{{if $p.SeriesTitle}}{{$p.SeriesTitle}}{{else}}{{$p.Title}}{{end}}</a>
                             {{end}}
                         </div>
                         {{end}}
@@ -71,7 +71,7 @@
                             {{if eq $p.Slug $.Post.Slug}}
                                 <span class="font-medium" style="color:#1a6eb5">{{if $p.SeriesTitle}}{{$p.SeriesTitle}}{{else}}{{$p.Title}}{{end}}</span>
                             {{else}}
-                                <a href="/blog/{{$p.Slug}}" class="text-gray-600 dark:text-gray-400 hover:underline">{{if $p.SeriesTitle}}{{$p.SeriesTitle}}{{else}}{{$p.Title}}{{end}}</a>
+                                <a href="{{$p.URLPath}}" class="text-gray-600 dark:text-gray-400 hover:underline">{{if $p.SeriesTitle}}{{$p.SeriesTitle}}{{else}}{{$p.Title}}{{end}}</a>
                             {{end}}
                         </li>
                         {{end}}
@@ -103,7 +103,7 @@
                 <!-- Next Series Part Callout -->
                 <div class="mt-14 p-8 rounded-2xl bg-gray-50 dark:bg-gray-800/50 border border-gray-100 dark:border-gray-800/80 hover:border-blue/30 dark:hover:border-blue/30 transition-colors group">
                     <p class="text-[11px] font-bold tracking-widest uppercase text-gray-400 dark:text-gray-500 mb-3 block">Next in this series</p>
-                    <a href="/blog/{{.Post.SeriesNext.Slug}}" class="block">
+                    <a href="{{.Post.SeriesNext.URLPath}}" class="block">
                         <div class="flex items-center justify-between gap-4">
                             <div>
                                 <h3 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white group-hover:text-blue dark:group-hover:text-blue-light transition-colors">Part {{.Post.SeriesNext.SeriesPart}}: {{if .Post.SeriesNext.SeriesTitle}}{{.Post.SeriesNext.SeriesTitle}}{{else}}{{.Post.SeriesNext.Title}}{{end}}</h3>
@@ -122,12 +122,12 @@
                         {{if .Post.Series}}
                             {{if .Post.SeriesPrev}}
                             <p class="text-gray-400 mb-1 text-xs uppercase tracking-wide font-medium">← Previous part</p>
-                            <a class="font-semibold transition-opacity hover:opacity-70" style="color:#1a6eb5" href="/blog/{{.Post.SeriesPrev.Slug}}">{{if .Post.SeriesPrev.SeriesTitle}}{{.Post.SeriesPrev.SeriesTitle}}{{else}}{{.Post.SeriesPrev.Title}}{{end}}</a>
+                            <a class="font-semibold transition-opacity hover:opacity-70" style="color:#1a6eb5" href="{{.Post.SeriesPrev.URLPath}}">{{if .Post.SeriesPrev.SeriesTitle}}{{.Post.SeriesPrev.SeriesTitle}}{{else}}{{.Post.SeriesPrev.Title}}{{end}}</a>
                             {{end}}
                         {{else}}
                             {{if .Next}}
                             <p class="text-gray-400 mb-1 text-xs uppercase tracking-wide font-medium">← Previous post</p>
-                            <a class="font-semibold transition-opacity hover:opacity-70" style="color:#1a6eb5" href="/blog/{{.Next.Slug}}">{{.Next.Title}}</a>
+                            <a class="font-semibold transition-opacity hover:opacity-70" style="color:#1a6eb5" href="{{.Next.URLPath}}">{{.Next.Title}}</a>
                             {{end}}
                         {{end}}
                     </div>
@@ -135,12 +135,12 @@
                         {{if .Post.Series}}
                             {{if .Post.SeriesNext}}
                             <p class="text-gray-400 mb-1 text-xs uppercase tracking-wide font-medium">Next part →</p>
-                            <a class="font-semibold transition-opacity hover:opacity-70" style="color:#1a6eb5" href="/blog/{{.Post.SeriesNext.Slug}}">{{if .Post.SeriesNext.SeriesTitle}}{{.Post.SeriesNext.SeriesTitle}}{{else}}{{.Post.SeriesNext.Title}}{{end}}</a>
+                            <a class="font-semibold transition-opacity hover:opacity-70" style="color:#1a6eb5" href="{{.Post.SeriesNext.URLPath}}">{{if .Post.SeriesNext.SeriesTitle}}{{.Post.SeriesNext.SeriesTitle}}{{else}}{{.Post.SeriesNext.Title}}{{end}}</a>
                             {{end}}
                         {{else}}
                             {{if .Prev}}
                             <p class="text-gray-400 mb-1 text-xs uppercase tracking-wide font-medium">Next post →</p>
-                            <a class="font-semibold transition-opacity hover:opacity-70" style="color:#1a6eb5" href="/blog/{{.Prev.Slug}}">{{.Prev.Title}}</a>
+                            <a class="font-semibold transition-opacity hover:opacity-70" style="color:#1a6eb5" href="{{.Prev.URLPath}}">{{.Prev.Title}}</a>
                             {{end}}
                         {{end}}
                     </div>
@@ -232,7 +232,7 @@
         mermaid.initialize({ startOnLoad: true, theme: isDark ? 'dark' : 'neutral', flowchart: { useMaxWidth: true } });
     </script>
     <script>
-    fetch('https://rainyinsaigon.goatcounter.com/counter//blog/{{.Slug}}/.json')
+    fetch('https://rainyinsaigon.goatcounter.com/counter{{.URLPath}}.json')
         .then(function(r){ return r.ok ? r.json() : null; })
         .then(function(d){
             if (d && d.count) {

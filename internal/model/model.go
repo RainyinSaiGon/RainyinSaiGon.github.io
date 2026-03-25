@@ -2,6 +2,7 @@ package model
 
 import (
 	"html/template"
+	"strings"
 	"time"
 )
 
@@ -9,6 +10,7 @@ import (
 type Post struct {
 	Title       string
 	Slug        string
+	Path        string
 	Date        string
 	DateParsed  time.Time
 	Description string
@@ -21,6 +23,14 @@ type Post struct {
 	SeriesPrev  *Post         // previous part in the series
 	ReadTime    int           // estimated minutes to read
 	Content     template.HTML // raw HTML, not escaped in templates
+}
+
+// URLPath returns the canonical blog URL path for this post.
+func (p Post) URLPath() string {
+	if p.Path == "" {
+		return "/blog/" + p.Slug + "/"
+	}
+	return "/blog/" + strings.Trim(p.Path, "/") + "/" + p.Slug + "/"
 }
 
 // Series represents a collection of related blog posts.
@@ -57,6 +67,7 @@ type PostPageData struct {
 type SearchEntry struct {
 	Title       string   `json:"title"`
 	Slug        string   `json:"slug"`
+	URL         string   `json:"url"`
 	Description string   `json:"description"`
 	Date        string   `json:"date"`
 	Tags        []string `json:"tags"`

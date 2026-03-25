@@ -40,23 +40,38 @@ func readTime(htmlContent string) int {
 
 // ReadPosts reads all .md files from dir and returns a slice of Posts.
 func ReadPosts(dir string) ([]model.Post, error) {
-	files, err := os.ReadDir(dir)
+	var posts []model.Post
+	err := filepath.WalkDir(dir, func(path string, d os.DirEntry, err error) error {
+		if err != nil {
+			return err
+		}
+		if d.IsDir() || !strings.HasSuffix(d.Name(), ".md") {
+			return nil
+		}
+
+		raw, err := os.ReadFile(path)
+		if err != nil {
+			return err
+		}
+
+		rel, err := filepath.Rel(dir, path)
+		if err != nil {
+			return err
+		}
+		slug := strings.TrimSuffix(filepath.Base(rel), ".md")
+		relDir := filepath.Dir(rel)
+		if relDir == "." {
+			relDir = ""
+		}
+		relDir = filepath.ToSlash(relDir)
+
+		posts = append(posts, parsePost(relDir, slug, string(raw)))
+		return nil
+	})
 	if err != nil {
 		return nil, err
 	}
 
-	var posts []model.Post
-	for _, f := range files {
-		if f.IsDir() || !strings.HasSuffix(f.Name(), ".md") {
-			continue
-		}
-		raw, err := os.ReadFile(filepath.Join(dir, f.Name()))
-		if err != nil {
-			return nil, err
-		}
-		slug := strings.TrimSuffix(f.Name(), ".md")
-		posts = append(posts, parsePost(slug, string(raw)))
-	}
 	return posts, nil
 }
 
@@ -96,8 +111,8 @@ func ReadProjects(dir string) ([]model.Project, error) {
 //	description: A short summary
 //	---
 //	<p>HTML content here…</p>
-func parsePost(slug, raw string) model.Post {
-	post := model.Post{Slug: slug}
+func parsePost(path, slug, raw string) model.Post {
+	post := model.Post{Slug: slug, Path: path}
 	lines := strings.Split(raw, "\n")
 	bodyStart := len(lines)
 

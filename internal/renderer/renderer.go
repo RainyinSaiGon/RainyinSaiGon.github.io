@@ -10,6 +10,7 @@ import (
 	"io/fs"
 	"os"
 	"path/filepath"
+	"strings"
 	"time"
 
 	"portfolio/internal/model"
@@ -105,7 +106,8 @@ func (r *Renderer) RenderPost(posts []model.Post, idx int) error {
 		prev := posts[idx-1]
 		data.Prev = &prev
 	}
-	dir := filepath.Join(r.outputDir, "blog", post.Slug)
+	relURLPath := strings.Trim(post.URLPath(), "/")
+	dir := filepath.Join(r.outputDir, filepath.FromSlash(relURLPath))
 	if err := os.MkdirAll(dir, 0755); err != nil {
 		return err
 	}
@@ -140,6 +142,7 @@ func (r *Renderer) GenerateSearchJSON(posts []model.Post) error {
 		entries[i] = model.SearchEntry{
 			Title:       p.Title,
 			Slug:        p.Slug,
+			URL:         p.URLPath(),
 			Description: p.Description,
 			Date:        p.Date,
 			Tags:        p.Tags,
@@ -179,7 +182,7 @@ func (r *Renderer) GenerateRSS(posts []model.Post) error {
 	for i, p := range posts {
 		items[i] = Item{
 			Title:       p.Title,
-			Link:        fmt.Sprintf("%s/blog/%s/", siteURL, p.Slug),
+			Link:        fmt.Sprintf("%s%s", siteURL, p.URLPath()),
 			PubDate:     p.DateParsed.UTC().Format(time.RFC1123Z),
 			Description: p.Description,
 		}
@@ -228,7 +231,7 @@ func (r *Renderer) GenerateSitemap(posts []model.Post, projects []model.Project)
 	}
 	for _, p := range posts {
 		urls = append(urls, URL{
-			Loc:        fmt.Sprintf("%s/blog/%s/", siteURL, p.Slug),
+			Loc:        fmt.Sprintf("%s%s", siteURL, p.URLPath()),
 			LastMod:    p.DateParsed.UTC().Format("2006-01-02"),
 			ChangeFreq: "yearly",
 			Priority:   "0.7",

@@ -68,6 +68,12 @@ func Build(cfg Config) error {
 		return fmt.Errorf("creating output dir: %w", err)
 	}
 
+	// Remove previously generated blog pages to avoid stale URLs
+	// when post slugs/paths change between builds.
+	if err := os.RemoveAll(filepath.Join(cfg.OutputDir, "blog")); err != nil {
+		return fmt.Errorf("cleaning blog output dir: %w", err)
+	}
+
 	r, err := renderer.New(cfg.OutputDir)
 	if err != nil {
 		return fmt.Errorf("initialising renderer: %w", err)
