@@ -13,13 +13,14 @@ import (
 	"portfolio/internal/model"
 
 	"github.com/yuin/goldmark"
+	"github.com/yuin/goldmark/extension"
 )
 
 var htmlTagRe = regexp.MustCompile(`<[^>]+>`)
 
 // markdownToHTML converts markdown content to HTML using goldmark.
 func markdownToHTML(markdown string) string {
-	md := goldmark.New()
+	md := goldmark.New(goldmark.WithExtensions(extension.GFM))
 	var buf bytes.Buffer
 	if err := md.Convert([]byte(markdown), &buf); err != nil {
 		return markdown // fallback to original if conversion fails
