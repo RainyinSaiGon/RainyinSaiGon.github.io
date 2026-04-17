@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find *)",
+      "Bash(go run *)",
+      "Read(//c/Users/Vu/.claude/projects/C--Users-Vu-personalProject-goLearn-Portfolio/memory//**)",
+      "Read(//c/Users/Vu/.claude/projects/C--Users-Vu-personalProject-goLearn-Portfolio/memory/**)"
+    ]
+  }
+}
