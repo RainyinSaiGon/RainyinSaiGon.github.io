@@ -79,7 +79,19 @@ html { scroll-behavior: smooth; }
 .post-body .mermaid { margin: 1.5rem 0; text-align: center; }
 .post-body .mermaid svg { max-width: 100%; height: auto; }
 
+/* post-body tables */
+.post-body table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.9rem; display: block; overflow-x: auto; }
+.post-body thead { background: #f0f7ff; }
+.post-body th { padding: 0.65rem 1rem; text-align: left; font-weight: 700; color: #0d2a4a; border-bottom: 2px solid #bfdbfe; white-space: nowrap; }
+.post-body td { padding: 0.6rem 1rem; color: #374151; border-bottom: 1px solid #e5e7eb; vertical-align: top; }
+.post-body tbody tr:last-child td { border-bottom: none; }
+.post-body tbody tr:hover td { background: #f8fafc; }
+
 /* post-body dark mode */
+.dark .post-body thead { background: #172033; }
+.dark .post-body th { color: #e2e8f0; border-bottom-color: #1e40af; }
+.dark .post-body td { color: #d1d5db; border-bottom-color: #1f2937; }
+.dark .post-body tbody tr:hover td { background: #1e293b; }
 .dark .post-body h2, .dark .post-body h3 { color: #f1f5f9; }
 .dark .post-body h2 { border-top-color: #1f2937; }
 .dark .post-body p  { color: #d1d5db; }
