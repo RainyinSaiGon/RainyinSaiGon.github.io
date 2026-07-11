@@ -41,6 +41,9 @@ func readTime(htmlContent string) int {
 
 // ReadPosts reads all .md files from dir and returns a slice of Posts.
 func ReadPosts(dir string) ([]model.Post, error) {
+	if _, err := os.Stat(dir); os.IsNotExist(err) {
+		return nil, nil
+	}
 	var posts []model.Post
 	err := filepath.WalkDir(dir, func(path string, d os.DirEntry, err error) error {
 		if err != nil {

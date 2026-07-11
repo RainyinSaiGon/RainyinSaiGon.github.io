@@ -24,19 +24,15 @@
             <div class="flex flex-col sm:flex-row gap-8 items-start mb-10">
                 <div class="shrink-0">
                     <div
-                        class="w-32 h-32 rounded-full bg-blue-100 dark:bg-blue-900/30 border-4 border-white dark:border-gray-800 shadow-md flex items-center justify-center overflow-hidden">
-                        <!-- Placeholder for a profile picture -->
-                        <svg class="w-16 h-16 text-blue-500 dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                                clip-rule="evenodd"></path>
-                        </svg>
+                        class="w-32 h-32 rounded-full bg-blue-100 dark:bg-blue-900/30 border-4 border-white dark:border-gray-800 shadow-md overflow-hidden">
+                        <!-- Profile picture -->
+                        <img src="/images/avatar.jpg" alt="Dinh Dai Vu" class="w-full h-full object-cover">
                     </div>
                 </div>
                 <div class="flex-1">
                     <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-6 gap-2">
-                        I'm Dinh Dai Vu — a Year 3 IT student at VNUHCM – University of Science (GPA 3.52/4.0) and
-                        Software Engineer Intern at i-stech. I build full-stack platforms, cloud data pipelines, and
+                        I'm Dinh Dai Vu — a Year 3 IT student at VNUHCM – University of Science (GPA 3.60/4.0),
+                        Incoming Software Engineer Intern at Grab, and former Software Engineer Intern at i-stech. I build full-stack platforms, cloud data pipelines, and
                         backend systems. This is where I share my projects and writing on software engineering.
                     </p>
                     <div class="flex flex-wrap gap-3">
@@ -107,15 +103,12 @@
                                 <span
                                     class="skill-badge bg-violet-100 text-violet-800 dark:bg-violet-900/40 dark:text-violet-300">PostgreSQL</span>
                                 <span
-                                    class="skill-badge bg-indigo-100 text-indigo-800 dark:bg-indigo-900/40 dark:text-indigo-300">Oracle</span>
+                                    class="skill-badge bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300">CockroachDB</span>
+                            
                                 <span
                                     class="skill-badge bg-orange-100 text-orange-800 dark:bg-orange-900/40 dark:text-orange-300">Git</span>
                                 <span
                                     class="skill-badge bg-sky-100 text-sky-800 dark:bg-sky-900/40 dark:text-sky-300">Docker</span>
-                                <span
-                                    class="skill-badge bg-cyan-100 text-cyan-800 dark:bg-cyan-900/40 dark:text-cyan-300">AWS</span>
-                                <span
-                                    class="skill-badge bg-teal-100 text-teal-800 dark:bg-teal-900/40 dark:text-teal-300">GCP</span>
                                 <span
                                     class="skill-badge bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-300">Kafka</span>
                             </div>
@@ -149,9 +142,20 @@
                         </div>
                         <div class="timeline-item">
                             <span class="timeline-dot"></span>
-                            <p class="timeline-year">2026</p>
+                            <p class="timeline-year">Jan. 2026</p>
                             <p class="text-sm text-gray-700 dark:text-gray-300">Software Engineer Intern at i-stech —
                                 built PEP platform and led TTA analytics migration to AWS</p>
+                        </div>
+                        <div class="timeline-item">
+                            <span class="timeline-dot"></span>
+                            <p class="timeline-year">Jul. 2026</p>
+                            <p class="text-sm text-gray-700 dark:text-gray-300">Software Engineer Intern at ITC Group —
+                                focusing on Go-based and Angular-based projects</p>
+                        </div>
+                        <div class="timeline-item">
+                            <span class="timeline-dot"></span>
+                            <p class="timeline-year">Incoming</p>
+                            <p class="text-sm text-gray-700 dark:text-gray-300">Software Engineer Intern at Grab</p>
                         </div>
                     </div>
                 </div>
@@ -159,6 +163,44 @@
 
             <!-- Experience Section -->
             <h2 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">Experience</h2>
+
+            <!-- Grab -->
+            <div class="info-card mb-6">
+                <div class="flex items-start justify-between flex-wrap gap-2">
+                    <div>
+                        <p class="font-bold text-gray-900 dark:text-white">Grab</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Software Engineer Intern</p>
+                    </div>
+                    <div class="text-right shrink-0">
+                        <p class="text-sm font-semibold text-gray-700 dark:text-gray-300">Incoming</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Ho Chi Minh City, Vietnam</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ITC Group -->
+            <div class="info-card mb-6">
+                <div class="flex items-start justify-between flex-wrap gap-2 mb-4">
+                    <div>
+                        <p class="font-bold text-gray-900 dark:text-white">ITC Group</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Software Engineer Intern</p>
+                    </div>
+                    <div class="text-right shrink-0">
+                        <p class="text-sm font-semibold text-gray-700 dark:text-gray-300">Jul. 2026 – Present</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Ho Chi Minh City, Vietnam (On-site)</p>
+                    </div>
+                </div>
+                <div>
+                    <ul class="space-y-2 text-sm text-gray-700 dark:text-gray-300">
+                        <li class="flex gap-2">
+                            <span class="shrink-0 mt-0.5" style="color:#1a6eb5">–</span>
+                            <span>Focused on backend and frontend development in Go-based and Angular-based projects.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- i-stech -->
             <div class="info-card mb-10">
                 <div class="flex items-start justify-between flex-wrap gap-2 mb-6">
                     <div>
@@ -166,7 +208,7 @@
                         <p class="text-sm text-gray-500 dark:text-gray-400">Software Engineer Intern</p>
                     </div>
                     <div class="text-right shrink-0">
-                        <p class="text-sm font-semibold text-gray-700 dark:text-gray-300">Jan. 2026 – Present</p>
+                        <p class="text-sm font-semibold text-gray-700 dark:text-gray-300">Jan. 2026 – Jun. 2026</p>
                         <p class="text-sm text-gray-500 dark:text-gray-400">Ho Chi Minh City, Vietnam</p>
                     </div>
                 </div>
@@ -175,7 +217,7 @@
                 <div class="mb-5">
                     <div class="flex items-center justify-between flex-wrap gap-1 mb-2">
                         <p class="text-sm font-semibold text-gray-800 dark:text-gray-200">TTA Analytics Platform Migration</p>
-                        <p class="text-xs text-gray-400 dark:text-gray-500 shrink-0">Apr. 2026 – Present</p>
+                        <p class="text-xs text-gray-400 dark:text-gray-500 shrink-0">Apr. 2026 – Jun. 2026</p>
                     </div>
                     <ul class="space-y-2 text-sm text-gray-700 dark:text-gray-300">
                         <li class="flex gap-2">
@@ -195,7 +237,7 @@
                 <div>
                     <div class="flex items-center justify-between flex-wrap gap-1 mb-2">
                         <p class="text-sm font-semibold text-gray-800 dark:text-gray-200">PEP Project Management Platform</p>
-                        <p class="text-xs text-gray-400 dark:text-gray-500 shrink-0">Jan. 2026 – Present</p>
+                        <p class="text-xs text-gray-400 dark:text-gray-500 shrink-0">Jan. 2026 – Jun. 2026</p>
                     </div>
                     <ul class="space-y-2 text-sm text-gray-700 dark:text-gray-300">
                         <li class="flex gap-2">
@@ -223,7 +265,7 @@
                         <p class="text-sm text-gray-500 dark:text-gray-400">Bachelor of Science in Information Technology</p>
                     </div>
                     <div class="text-right shrink-0">
-                        <p class="text-sm font-semibold text-gray-700 dark:text-gray-300">GPA: 3.52 / 4.0 &nbsp;·&nbsp; 8.11 / 10</p>
+                        <p class="text-sm font-semibold text-gray-700 dark:text-gray-300">GPA: 3.60 / 4.0 &nbsp;·&nbsp; 8.2 / 10</p>
                         <p class="text-sm text-gray-500 dark:text-gray-400">Sep 2023 – Aug 2027 &nbsp;·&nbsp; 109 credits</p>
                     </div>
                 </div>
